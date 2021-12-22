@@ -6,7 +6,8 @@ import { ObjectAttribute } from 'src/app/interfaces/ObjectAttribute';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { ObjectAttributeService } from 'src/app/services/object-attribute.service';
 import { BusinessTableComponent } from '../business-table/business-table.component';
-import { Lookups } from 'd:/BPM/BusinessProcess/src/app/interfaces/Lookups';
+import { Lookups } from 'src/app/interfaces/Lookups';
+
 declare var bootbox: any;
 
 @Component({
