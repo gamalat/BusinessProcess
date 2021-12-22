@@ -1,0 +1,13 @@
+
+ 
+ p-table tr.highlight {
+    background-color:rgb(246, 252, 246) !important;
+    color: #000;
+    
+ }
+
+ .emptymessage{
+   color: #a33;
+   margin-left: 44%;
+   font-weight: 600;
+}

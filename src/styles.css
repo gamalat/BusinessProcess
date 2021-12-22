@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+
+.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
+    border-width: 1px 1px 1px 1px;
+    width: 1rem !important;
+}
+
+.p-button {
+    padding: 10px 15px !important;
+    margin: 3px !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    border-radius: 0px !important;
+}
+
+.p-splitbutton .p-splitbutton-defaultbutton{
+ margin-right: -2px !important;
+
+}
+.p-breadcrumb{
+    background: #f8f9fa !important;
+    margin-bottom: 5px
+}
+
+.p-breadcrumb ul li .p-menuitem-text {
+    font-size: 13px !important;
+}
+
+.p-toolbar {
+    background: #fff;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 3px 0;
+}
+
+.p-panelmenu .p-panelmenu-header > a {
+    padding: 1.25rem !important;
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    color: #ffffff !important;
+    background: #2a2b3c !important;
+    font-weight: 400 !important;
+    border-radius: 0px !important; 
+    transition: box-shadow 0.2s !important;
+}
+
+.p-tree-empty-message{
+color: #a33 !important;
+font-weight: 600px !important;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler{
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.p-tree .p-tree-filter-container .p-tree-filter{
+    height: 40px !important;
+}
+
+.p-inputtext{
+    height: 40px !important;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: #ced4da !important;
+}
+
+.p-column-filter-over{
+    z-index: 1068 !important;
+}

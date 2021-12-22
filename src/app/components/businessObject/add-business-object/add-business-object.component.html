@@ -1,0 +1,50 @@
+<button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#businessObject">
+  <i class="fa fa-plus"></i> New Business Object
+</button>
+
+<div class="modal fade" id="businessObject" tabindex="-1" role="dialog" aria-labelledby="businessObjectLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="businessObjectLabel">Add Business Object</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset(addForm.value)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form #addForm="ngForm" (ngSubmit)="onAddBusinessObj(addForm)">
+
+          <div class="form-group row">
+            <label for="bo_CODE" class="col-sm-2 col-form-label">BO Code* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="bo_CODE" [(ngModel)]="bo_CODE" name="bo_CODE" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="bo_NAME" class="col-sm-2 col-form-label">BO Name* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="bo_NAME"  [(ngModel)]="bo_NAME" name="bo_NAME" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10  input-group-sm">
+              <textarea type="text" row="3" class="form-control" id="description" [(ngModel)]="description" name="description"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Business Object</button>
+            <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal" (click)="reset(addForm.value)" >Cancel</button>
+
+          </div>
+        </form>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

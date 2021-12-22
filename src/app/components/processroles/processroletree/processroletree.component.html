@@ -1,0 +1,17 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+
+
+<div class="row col-12" style="margin: 0 -27px;">
+    <div class="col-12">
+        <app-addprocessrole [RoleRow]="ROLEROW" #myParentID ></app-addprocessrole>
+    </div>
+
+    <div class="col-4">
+       <p-tree [value]="treeall" [filter]="true" [filterPlaceholder]="'Filter By Role Name...'"   selectionMode="single" (onNodeSelect)="nodeSelect($event)" ></p-tree> 
+    </div>
+    
+    <div class="col-8" *ngIf="ROLEIDSession == true" >
+        <app-processroledetails  #myDetails ></app-processroledetails>
+    </div>
+
+</div>

@@ -1,0 +1,69 @@
+{
+    "data": 
+    [
+        {
+            "label": "Data11",
+            "children": [{
+                    "label": "Child1",
+                    "children": [
+                        {"label": "P1"}, {"label": "P2"}]
+                      
+                },
+                {
+                    "label": "Child2",
+                    "children": [{"label": "yyyy"}]
+                }]
+        },
+        {
+            "label": "Data2",
+            "children": [
+                {"label": "11111"},
+                {"label": "2222222"},
+                {"label": "33333"}]
+        }
+       
+    ]
+}
+
+
+/*
+
+{
+    "data": 
+    [
+        {
+            "label": "Data1",
+            "data": "Documents Folder",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
+            "children": [{
+                    "label": "Child1",
+                    "data": "Work Folder",
+                    "expandedIcon": "pi pi-folder-open",
+                    "collapsedIcon": "pi pi-folder",
+                    "children": [
+                        {"label": "P1", "icon": "pi pi-file", "data": "Expenses Document"}, 
+                        {"label": "P2", "icon": "pi pi-file", "data": "Resume Document"}]
+                },
+                {
+                    "label": "Child2",
+                    "data": "Home Folder",
+                    "expandedIcon": "pi pi-folder-open",
+                    "collapsedIcon": "pi pi-folder",
+                    "children": [{"label": "Invoices.txt", "icon": "pi pi-file", "data": "Invoices for this month"}]
+                }]
+        },
+        {
+            "label": "Data2",
+            "data": "",
+            "expandedIcon": "pi pi-folder-open",
+            "collapsedIcon": "pi pi-folder",
+            "children": [
+                {"label": "11111", "icon": "", "data": "Barcelona Photo"},
+                {"label": "2222222", "icon": "", "data": "PrimeFaces Logo"},
+                {"label": "33333", "icon": "", "data": "PrimeUI Logo"}]
+        }
+       
+    ]
+}
+*/

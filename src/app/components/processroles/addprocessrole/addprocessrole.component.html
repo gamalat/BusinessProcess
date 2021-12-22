@@ -1,0 +1,57 @@
+<button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#ProcessRole" (click)="checkParentorChild()">
+    <i class="fa fa-plus"></i>  New Process Role 
+</button>
+  
+  <div class="modal fade" id="ProcessRole" tabindex="-1" role="dialog" aria-labelledby="ProcessRoleLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-xl" role="document">
+      <form #f="ngForm" (ngSubmit)="onClickSubmit(f.value)">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="ProcessRoleLabel">{{title}}</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset(f)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group row">
+              <label for="LAST_MODIFIED_BY" class="col-sm-2 col-form-label">LAST MODIFIED BY  </label>
+              <div class="col-sm-10  input-group-sm">
+                  <input type="text"  class="form-control"  name="LAST_MODIFIED_BY" [(ngModel)]="LAST_MODIFIED_BY" readonly   />      
+              </div>
+           </div>
+
+           <div class="form-group row">
+            <label for="PARENT_ROLE_ID" class="col-sm-2 col-form-label">PARENT ROLE ID  </label>
+            <div class="col-sm-10  input-group-sm">
+                <input type="text"  class="form-control"  name="PARENT_ROLE_ID"  [(ngModel)]="PARENT_ROLE_ID"  readonly/>      
+            </div>
+          </div>
+
+            <div class="form-group row">
+                <label for="ROLE_NAME" class="col-sm-2 col-form-label">Role Name * </label>
+                <div class="col-sm-10  input-group-sm">
+                    <input type="text"  class="form-control"  name="ROLE_NAME" [(ngModel)]="ROLE_NAME" 
+                    #RNAME ="ngModel"  required />  
+                    <p  class="text-danger mt-1" *ngIf="RNAME.errors?.required && RNAME.touched ">ROLE NAME is required.</p>
+                  </div>
+                
+            </div>
+        
+            <div class="form-group row">
+                <label for="DESCRIPTION" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10  input-group-sm">
+                    <textarea type="text" row="3" class="form-control" id="DESCRIPTION" name="DESCRIPTION" [(ngModel)]="DESCRIPTION" ></textarea>
+                </div>
+            </div>
+      
+         
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success"  [disabled]=f.form.invalid >Save</button>
+          <button type="button" class="btn btn-danger" (click)="reset(f)" data-dismiss="modal">Cancel</button>
+       </div>
+      </div>
+    </form>
+    </div>
+  </div>

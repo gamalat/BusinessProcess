@@ -1,0 +1,68 @@
+    <i data-toggle="modal" data-target="#dataObject" class="fa fa-plus" style="font-size:24px;color:rgb(17, 92, 14)"></i> 
+  
+  <div class="modal fade" id="dataObject" tabindex="-1" role="dialog" aria-labelledby="dataObjectLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dataObjectLabel">Add Data Object</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset(addForm.value)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddDatasObj(bo.bo_ID,addForm)" >
+            <div class="form-group row" style="visibility: hidden;height: 0;">
+                <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
+                <div class="col-sm-10  input-group-sm">
+                    <input type="text" class="form-control"  [(ngModel)]=bo.bo_ID  id="bo_ID" name="bo_ID" disabled />
+    
+                </div>
+            </div>
+            <div class="form-group row">
+              <label for="do_CODE" class="col-sm-2 col-form-label">DO Code* </label>
+              <div class="col-sm-10  input-group-sm">
+                <input type="text" class="form-control" id="do_CODE"  [(ngModel)]="do_CODE" name="do_CODE" required />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="do_NAME" class="col-sm-2 col-form-label">DO Name* </label>
+              <div class="col-sm-10  input-group-sm">
+                <input type="text" class="form-control" id="do_NAME"  [(ngModel)]="do_NAME"  name="do_NAME" required />
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="do_TYPE" class="col-sm-2 col-form-label">DO Type* </label>
+                <div class="col-sm-10  input-group-sm">
+                  <select class="form-control"  [(ngModel)]="do_TYPE"  name="do_TYPE" id="do_TYPE" #selectElem (change)="setNewType(selectElem.value)" required>
+                    <option *ngFor="let type of lTypes" [value]="type.Name">
+                      {{type.Name}}
+                  </option>
+                </select>
+                </div>
+              </div>
+              <!-- <input type="text" class="form-control" id="do_TYPE" ngModel name="do_TYPE" required /> -->
+
+                
+
+
+            <div class="form-group row">
+              <label for="description" class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10  input-group-sm">
+                <textarea type="text" row="3" class="form-control" id="description"  [(ngModel)]="description"  name="description"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Data Object</button>
+              <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"(click)="reset(addForm.value)">Cancel</button>
+  
+            </div>
+          </form>
+  
+  
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>

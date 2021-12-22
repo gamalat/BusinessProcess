@@ -1,0 +1,118 @@
+
+
+<i class="fa fa-edit" style="font-size:24px;color:green" data-toggle="modal" (click)="getAttbyID()"
+   data-target="#objectAttribute1"></i>
+
+
+<div class="modal fade" id="objectAttribute1" tabindex="-1" role="dialog" aria-labelledby="objectAttributeLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="objectAttributeLabel">Update Object Attribute</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <!-- {{All | json}} -->
+        <!-- {{id}} -->
+        <!-- #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)"  -->
+        <form  #addForm="ngForm" (ngSubmit)="onUpdateAttObj(addForm)">
+          <div class="form-group row"  style="visibility: hidden;height: 0;">
+            <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
+            <div class="col-sm-10  input-group-sm">
+                <input type="text" class="form-control"   [(ngModel)]="bo_ID" id="bo_ID" name="bo_ID"  />
+                <input type="text" class="form-control"  [(ngModel)]="do_ID"  id="do_ID" name="do_ID"  />
+                <input type="text" class="form-control"  [(ngModel)]="att_ID"  id="att_ID" name="att_ID"  /> 
+ 
+            </div>
+        </div>
+          <div class="form-group row">
+            <label for="att_CODE" class="col-sm-2 col-form-label">Att Code </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="att_CODE"  name="att_CODE" disabled  [(ngModel)]="att_CODE"   />
+            </div>
+          </div>
+          <!-- {{bo_ID + Att_NAME}} -->
+          <div class="form-group row">
+            <label for="att_NAME" class="col-sm-2 col-form-label">Att Name* </label> 
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="att_NAME" value="att_NAME"  [(ngModel)]="att_NAME" name="att_NAME"  required />
+            </div>
+          </div>
+          
+          <div class="form-group row" >
+            <label class="col-sm-2 col-form-label" for="l">
+              Choise List
+            </label>
+            <div class="col-sm-10  input-group-sm">
+              <input class="form-check-input" type="checkbox"  id="l"  name="l" (change)="listfieldsChange($event)" ng-model="checked">
+              <input  type="text" name="choice_LIST" [(ngModel)]="choice_LIST"  style="visibility: hidden;height: 0;"/>
+
+            </div>
+          </div>
+        
+
+          <div class="form-group row">
+            <label for="att_TYPE" class="col-sm-2 col-form-label">Att Type*</label>
+            <div class="col-sm-10 input-group-sm">
+              <select [disabled]="disabled" class="form-control" [(ngModel)]="att_TYPE" name="att_TYPE" id="att_TYPE" #selectElem (change)="setNewType(selectElem.value)" ng-model="myDropDown" ng-disabled="!checked" required>
+              <option *ngFor="let type of lTypes" [value]="type.Name" >
+                {{type.Name}}
+            </option>
+          </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="d">
+              Dependant
+            </label>
+            <div class="col-sm-10  input-group-sm">
+              <input class="form-check-input" row="3" type="checkbox"  [disabled]="dependantChecked" id="d"  name="d"  (change)="dependantfieldsChange($event)">
+              <input  type="text" name="dependent" [(ngModel)]="dependent"  style="visibility: hidden;height: 0;"/>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="lookup_ID" class="col-sm-2 col-form-label">Lookup ID</label>
+            <div class="col-sm-10 input-group-sm">
+              <select  class="form-control" id="lookup_ID" class="form-control" [(ngModel)]="lookup_ID" name="lookup_ID"   [disabled]="LookUpDisabled" >
+              <option *ngFor="let Lookup of lookups" [value]="Lookup.LOOKUP_ID" >
+                {{Lookup.LOOKUP_NAME}} </option></select>
+            </div>
+            
+          </div>
+        
+        <div class="form-group row">
+          <label for="dep_ATT_ID" class="col-sm-2 col-form-label">Dept Att ID*</label>
+          <div class="col-sm-10 input-group-sm">
+            <select  class="form-control" id="dep_ATT_ID" class="form-control" [(ngModel)]="dep_ATT_ID" name="dep_ATT_ID" id="dep_ATT_ID"  [disabled]="depAttDisabled" required>
+              <option *ngFor="let dependant of dependants" [value]="dependant.att_ID" >
+                {{dependant.att_NAME}} </option></select>
+          </div>
+</div>
+          <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">Description </label>
+            <div class="col-sm-10 input-group-sm">
+              <textarea type="text" class="form-control" id="description" [(ngModel)]="description" name="description"></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Update Business Attribute</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reset()">Cancel</button>
+
+          </div>
+        </form>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
