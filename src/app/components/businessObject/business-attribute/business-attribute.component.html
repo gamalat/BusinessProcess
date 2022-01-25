@@ -1,10 +1,28 @@
-
-    <form #f="ngForm" style="margin-top: -33px;" (ngSubmit)="onEditBusinessObj(f.value)" >
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="cancelModalLabel">Confirmation</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure to Cancel changes ?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onCancelBusinessObj()"  class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+    <form #f="ngForm" style="margin-top: -20px;" (ngSubmit)="onEditBusinessObj(f.value)"  >
         <div style="text-align: end;">
             <!-- [disabled]=f.form.invalid -->
             <button type="submit" class="btn btn-success btn-sm mb-1 mr-1 " [disabled]="f.invalid"> <i
                     class="fa fa-save" ></i> Save</button>
-            <button type="button" class="btn btn-danger btn-sm mb-1" data-dismiss="modal" (click)="resetForm(f.value)"> <i class="fa fa-times"></i>
+            <button type="button" class="btn btn-danger btn-sm mb-1" data-dismiss="modal" data-toggle="modal" data-target="#cancelModal"> <i class="fa fa-times"></i>
                 Cancel</button>
         </div>
         <div class="form-group row" style="visibility: hidden;height: 0;">
@@ -37,7 +55,7 @@
                 <textarea type="text" row="2" class="form-control"  [(ngModel)]="description" name="description" id="description"></textarea>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" [hidden]="dType">
             <label for="do_TYPE" class="col-sm-2 col-form-label">Do Type</label>
             <div class="col-sm-10  input-group-sm">
                 <select type="text" row="2" class="form-control"  [(ngModel)]="do_TYPE" name="do_TYPE" id="do_TYPE"  #selectElem (change)="setNewType(selectElem.value)">
@@ -53,23 +71,21 @@
 
     
 
+   
 
+    <p-table [value]="rowData" dataKey="name"  id="body" responsiveLayout="scroll" styleClass="p-table-sm override-this" #dt>
+        <ng-template pTemplate="caption"  class="border">
 
-    <p-table [value]="rowData" dataKey="name" responsiveLayout="scroll" styleClass="p-table-sm" #dt>
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex">
-                <!-- {{ID}}
-                {{do_ID}} -->
-                <app-add-object-attribute style="float: right;" [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
-                <!-- <app-process style="float: right; padding-right: 20px;"></app-process> -->
-                <span class="p-input-icon-left p-ml-auto">
-
-                </span>
-            </div>
+                    <!-- {{ID}}
+                    {{do_ID}} -->
+                    <app-add-object-attribute   [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
+                    <app-process style="float: right; margin-right: 0;" [bo_ID]="ID"></app-process>
+          
         </ng-template>
         <ng-template pTemplate="header">
+            
             <tr>
-                <th style="width: 3rem"></th>
+                <!-- <th style="width: 3rem"></th> -->
                 <th pSortableColumn="att_ID">
                     <div class="p-d-flex p-jc-between p-ai-center">
 
@@ -113,27 +129,52 @@
         <ng-template pTemplate="body" let-MainData let-expanded="expanded">
             <tr (mouseover)="highlightAttObj(MainData)"  
               [ngClass]="{'highlight' : MainData.att_NAME == selectedName}">
-                <td>
+                <!-- <td>
                     <button type="button" pButton pRipple [pRowToggler]="MainData"
                         class="p-button-text p-button-rounded p-button-plain">
                     </button>
-                </td>
+                </td> -->
                 <td>{{MainData.att_ID}}</td>
                 <td>{{MainData.att_NAME}}</td>
                 <td>{{MainData.att_CODE}}</td>
                 <td>{{MainData.att_TYPE}}</td>
-                <td><app-update-attribute [att_ID]="MainData.att_ID"></app-update-attribute>
+                <td>
+                    <!-- <i class="fa fa-edit" style="font-size:24px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"
+                  ></i> -->
+                  <i class="fa fa-edit" style="font-size:16px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"></i>
+<!-- {{MainData.att_ID}} -->
+                     
                 </td>
                 <td>
-                    <i class="fa fa-trash-o"popover-class="popover" style="font-size:24px;color:red" mwlConfirmationPopover
-                        [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="center"
-                        (confirm)="onDeleteAtt(MainData.att_ID)" (cancel)="cancelClicked = true">
+                    <i class="fa fa-trash-o"popover-class="popover" style="font-size:16px;color:red" 
+                  (click)= "onPressAtt(MainData)" >
                     </i>
                     <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red" (click)="onDeleteAtt(MainData.att_ID)"></i> -->
                 </td>
-            </tr>
 
+                <div class="modal fade" id="deleteAttModal" tabindex="-1" role="dialog" aria-labelledby="deleteAttModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="deleteAttModalLabel">Delete Object Attribute</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                             </button>
+                          </div>
+                          <div class="modal-body">
+                             <p>Are you sure you want to delete {{DAttName}}?</p>
+                             <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button (click)="onDeleteAtt(DAttID)"  class="btn btn-danger" data-dismiss="modal">Yes</button>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                </div>
+            </tr>
+            
         </ng-template>
+
         <ng-template pTemplate="emptymessage">
             <tr>
 
@@ -141,3 +182,7 @@
             </tr>
         </ng-template>
     </p-table>
+    <div id="comp-render" *ngIf="display">
+        <app-update-attribute  ></app-update-attribute>
+        
+    </div>

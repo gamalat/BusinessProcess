@@ -1,21 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~bootstrap/dist/css/bootstrap.css";
+ @import "~font-awesome/css/font-awesome.css"; 
+ 
+ /* .body{
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 14px;
+ } */
+ 
 .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
     border-width: 1px 1px 1px 1px;
     width: 1rem !important;
 }
 
+.p-datatable.p-datatable-table .p-datatable-thead > tr > th {
+    padding:10px;
+    border-width:  1px;
+    width: 0.5rem !important;
+}
+.p-component {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 12px;
+    font-weight: normal;}
+
+    .p-datatable .p-datatable-thead > tr > th {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        border-width: 0 0 1px 0;
+        font-weight: 700;
+        color: #343a40;
+        background: #f8f9fa;
+        transition: box-shadow 0.2s;
+    }
+    /* .ng-star-inserted{
+        height: 20px;
+    } */
+/* .p-column-filter-row{
+height: 5px;
+} */
+
+/* .override-this{
+    font-size: 10px;
+  } */
+
+  /* html{
+    font-size:12px;
+  }
+  */
+  
 .p-button {
     padding: 10px 15px !important;
-    margin: 3px !important;
-    font-size: 14px !important;
+    /* margin: 3px !important; */
+    font-size: 12px !important;
     font-weight: 400 !important;
     border-radius: 0px !important;
 }
-
+.border {
+    border-right: 1px solid rgb(245, 238, 238);
+  border-radius: 1px;
+  }
 .p-splitbutton .p-splitbutton-defaultbutton{
  margin-right: -2px !important;
 
+}
+label{
+    font-size: 16px;
 }
 .p-breadcrumb{
     background: #f8f9fa !important;
@@ -23,7 +72,7 @@
 }
 
 .p-breadcrumb ul li .p-menuitem-text {
-    font-size: 13px !important;
+    font-size: 12px !important;
 }
 
 .p-toolbar {
@@ -60,8 +109,9 @@ font-weight: 600px !important;
 }
 
 .p-inputtext{
-    height: 40px !important;
+    height: 28px !important;
 }
+
 
 .p-inputtext:enabled:hover {
     border-color: #ced4da !important;
@@ -69,4 +119,44 @@ font-weight: 600px !important;
 
 .p-column-filter-over{
     z-index: 1068 !important;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+   font-size:12px;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    font-size: 12px;
+}
+  :-ms-input-placeholder { /* IE 10+ */
+    font-size: 12px;
+}
+  :-moz-placeholder { /* Firefox 18- */
+    font-size: 12px;
+}
+
+.p-dropdown-label {
+   
+    text-align: center;
+    font-size: 12px;
+}
+input{
+    font-size: 12px;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    padding: 12px;
+}
+
+.p-datatable-tfoot .ng-star-inserted{
+display: table-caption;
+}
+.p-datatable .p-datatable-header{
+    padding: 5px;
+}
+.p-button.p-button-icon-only.p-button-rounded {
+    /* border-radius: 50%; */
+    height: 1rem;
 }

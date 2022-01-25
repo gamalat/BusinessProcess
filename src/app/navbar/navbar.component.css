@@ -64,7 +64,7 @@
   
   .sidebar a{
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     display: block;
     padding: 20px 0px;
@@ -131,17 +131,17 @@
     background: #3c3c3c;
     padding: 6px;
     color: white;
-    font-size: 25px;
+    font-size: 14px;
     text-align: center;
   
   }
   main{
-  margin-top: 60px;
+  margin-top: -20px;
  /* background: #e2e2e2;*/
   }
   
   .memu-icon{
-    font-size: 22px;
+    font-size:14px;
   }
   
   .brand{

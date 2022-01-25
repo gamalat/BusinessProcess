@@ -1,0 +1,540 @@
+<p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="body" responsiveLayout="scroll"
+  styleClass="p-table-sm override-this" #dt >
+  <ng-template pTemplate="caption" class="border">
+
+    <div class="p-d-flex">
+      <button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#addLookup">
+        <i class="fa fa-plus"></i> Add New Lookup
+      </button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+
+      <th pSortableColumn="LOOKUP_NAME">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Lookup Name
+          <p-sortIcon field="LOOKUP_NAME"></p-sortIcon>
+        </div>
+      </th>
+
+
+
+      <th pSortableColumn="LOOKUP_TYPE">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Lookup Type
+          <p-sortIcon field="LOOKUP_TYPE"></p-sortIcon>
+        </div>
+      </th>
+
+      <th pSortableColumn="DEPENDANT">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Dependant
+          <p-sortIcon field="DEPENDANT"></p-sortIcon>
+        </div>
+      </th>
+
+      <th pSortableColumn="DEPENDANT_NAME">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Dependant Name
+          <p-sortIcon field="DEPENDANT_NAME"></p-sortIcon>
+        </div>
+      </th>
+
+     
+      <th></th>
+      <th></th>
+
+    </tr>
+    <tr>
+
+      <th>
+        <p-columnFilter type="text" field="LOOKUP_NAME"></p-columnFilter>
+      </th>
+
+      <th>
+        <p-columnFilter field="LOOKUP_TYPE" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value"   [options]="statuses" [ngModelOptions]="{standalone: true}"
+              (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+              <ng-template let-option pTemplate="item">
+                <span style="font-size: 12px;"[class]="'customer-badge status-' + option.value">{{option.label}}</span>
+              </ng-template>
+            </p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter  field="DEPENDANT" matchMode="equals" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value" [options]="dependFliter" [ngModelOptions]="{standalone: true}"
+              (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+              <ng-template let-option pTemplate="item">
+                <span  [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+              </ng-template>
+            </p-dropdown>
+          </ng-template>
+      </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="DEPENDANT_NAME"></p-columnFilter>
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  </ng-template>
+
+
+  <ng-template pTemplate="body" let-lookup>
+    <tr (mouseover)="highlightlookup(lookup)" [ngClass]="{'highlight' : lookup.LOOKUP_NAME == selectedName}">
+
+      <td> {{lookup.LOOKUP_NAME}}</td>
+      <td>{{lookup.LOOKUP_TYPE}}</td>
+      <td>
+        <i class="pi"
+          [ngClass]="{'true-icon pi-check-circle': lookup.DEPENDANT, 'false-icon pi-times-circle': !lookup.DEPENDANT}"></i>
+      </td>
+      <td>{{lookup.DEPENDANT_NAME}}</td>
+
+   
+      <td class="p-text-center">
+
+        <i class="fa fa-edit" style="font-size:16px;color:green" (click)="onPressLookup(lookup)"></i>
+
+      </td>
+      <td>
+        <i class="fa fa-trash-o" popover-class="popover" style="font-size:16px;color:red" 
+         (click)="onPressDelete(lookup)">
+        </i>
+      </td>
+    </tr>
+    <div class="modal fade" id="deleteLookupModal" tabindex="-1" role="dialog" aria-labelledby="deleteLookupModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteLookupModalLabel">Delete Lookup</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete {{LOOKUP_NAME}}?</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteLookup(lookup.LOOKUP_ID)" class="btn btn-danger"
+                data-dismiss="modal">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <!-- <span class="emptymessage">Loading Data</span>  -->
+    <tr>
+      <td colspan="5">No Date found.</td>
+    </tr>
+  </ng-template>
+
+
+</p-table>
+
+<!-- add lookup form -->
+<div class="modal fade" id="addLookup" tabindex="-1" role="dialog" aria-labelledby="addLookupLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLookupLabel">Add New Lookup</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm(addForm.value)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" >
+          <!-- "onAddLookup(addForm)" -->
+          <!-- <div class="form-group row" style="visibility: hidden;height: 0;">
+            <label for="LOOKUP_ID" class="col-sm-2 col-form-label">Lookup ID* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="LOOKUP_ID" [(ngModel)]="LOOKUP_ID" name="LOOKUP_ID"
+                maxlength="101" required />
+
+            </div>
+          </div> -->
+          <div class="form-group row">
+            <label for="LOOKUP_NAME" class="col-sm-2 col-form-label">Lookup Name* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="LOOKUP_NAME" [(ngModel)]="LOOKUP_NAME" name="LOOKUP_NAME"
+                maxlength="101" required />
+                
+              <!-- <small class="text-danger mt-1"*ngIf="LOOKUP_NAME.length==101">
+              Lookup Name must be less than or equal 100 character
+            </small>  -->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="do_TYPE" class="col-sm-2 col-form-label">Lookup Type* </label>
+            <div class="col-sm-10  input-group-sm">
+              <select class="form-control" [(ngModel)]="LOOKUP_TYPE" name="LOOKUP_TYPE" id="LOOKUP_TYPE" #selectElem
+                required>
+                <option *ngFor="let type of lTypes" [value]="type.Name">
+                  {{type.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="d">
+              Dependant
+            </label>
+            <div class="col-sm-10  input-group-sm">
+              <input class="form-check-input" row="3" type="checkbox" id="d" name="d"  (change)="checkChange($event)"
+              [(ngModel)]="checked">
+              <input type="text" name="DEPENDANT" [(ngModel)]="DEPENDANT" style="visibility: hidden;height: 0;" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="do_TYPE" class="col-sm-2 col-form-label">Dependant Name </label>
+            <div class="col-sm-10  input-group-sm">
+              <select class="form-control" name="DEP_LOOKUP_ID" id="DEP_LOOKUP_ID" [(ngModel)]="DEP_LOOKUP_ID"
+                [disabled]="dependantChecked" >
+                <option *ngFor="let dependant of dependants" [value]="dependant.LOOKUP_ID">
+                  {{dependant.LOOKUP_NAME}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="DESCRIPTION" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10  input-group-sm">
+
+              <textarea type="text" row="3" class="form-control" id="DESCRIPTION" [(ngModel)]="DESCRIPTION"
+                name="DESCRIPTION" maxlength="201"></textarea>
+              <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
+        Description must be less than or equal 200 character
+      </small>     -->
+            </div>
+          </div>
+          
+          <div class="form-group row" *ngIf="LOOKUP_TYPE==='SCRIPT'">
+            <label for="LOOKUP_SCRIPT" class="col-sm-2 col-form-label">Script</label>
+            <div class="col-sm-10  input-group-sm">
+
+              <textarea type="text" row="3" class="form-control" id="LOOKUP_SCRIPT" [(ngModel)]="LOOKUP_SCRIPT"
+                name="LOOKUP_SCRIPT"></textarea>
+           
+            </div>
+          </div>
+          <div class="modal-footer">
+           
+            <button type="button"  class="btn btn-success"  *ngIf="LOOKUP_TYPE==='SCRIPT'" (click)="validate(addForm,LOOKUP_SCRIPT)">Validate Script</button>
+            <button type="button" [disabled]="addForm.invalid" class="btn btn-success"  (click)="onValidate(addForm)">Add Lookup</button>
+            <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
+              (click)="resetForm(addForm.value)">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- update lookup form -->
+<div class="modal fade" id="updateLookup" tabindex="-1" role="dialog" aria-labelledby="updateLookupLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLookupLabel">Update Lookup</h5>
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm(Form.value)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #Form="ngForm" >
+          <div class="form-group row" style="visibility: hidden;height: 0;"> 
+            <label for="LOOKUP_ID" class="col-sm-2 col-form-label">LOOKUP_ID </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="LOOKUP_ID" [(ngModel)]="LOOKUP_ID" name="LOOKUP_ID"
+                maxlength="101"  />
+            
+            </div>
+            </div>
+          <div class="form-group row">
+            <label for="LOOKUP_NAME" class="col-sm-2 col-form-label">Lookup Name* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="LOOKUP_NAME" [(ngModel)]="LOOKUP_NAME" name="LOOKUP_NAME"
+                maxlength="101" required />
+              <!-- <small class="text-danger mt-1"*ngIf="this.LOOKUP_NAME.length==101">
+              Lookup Name must be less than or equal 100 character
+            </small>  -->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="do_TYPE" class="col-sm-2 col-form-label">Lookup Type* </label>
+            <div class="col-sm-10  input-group-sm">
+              <select class="form-control" [(ngModel)]="LOOKUP_TYPE" name="LOOKUP_TYPE" id="LOOKUP_TYPE" #selectElem
+                required>
+                <option *ngFor="let type of lTypes" [value]="type.Name">
+                  {{type.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="d">
+              Dependant
+            </label>
+            <div class="col-sm-10  input-group-sm">
+              <input class="form-check-input" row="3" type="checkbox" id="d" name="d" (change)="checkChange($event)"
+              [(ngModel)]="Dchecked">
+              <input type="text" name="DEPENDANT" [(ngModel)]="DEPENDANT" style="visibility: hidden;height: 0;" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="do_TYPE" class="col-sm-2 col-form-label">Dependant Name </label>
+            <div class="col-sm-10  input-group-sm">
+              <select class="form-control" name="DEP_LOOKUP_ID" id="DEP_LOOKUP_ID" [(ngModel)]="DEP_LOOKUP_ID"
+                [disabled]="dependantChecked" required>
+                <option *ngFor="let dependant of dependants" [value]="dependant.LOOKUP_ID">
+                  {{dependant.LOOKUP_NAME}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="DESCRIPTION" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10  input-group-sm">
+
+              <textarea type="text" row="3" class="form-control" id="DESCRIPTION" [(ngModel)]="DESCRIPTION"
+                name="DESCRIPTION" maxlength="201"></textarea>
+              <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
+        Description must be less than or equal 200 character
+      </small>     -->
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="this.LOOKUP_TYPE==='SCRIPT'">
+            <label for="LOOKUP_SCRIPT" class="col-sm-2 col-form-label">Script</label>
+            <div class="col-sm-10  input-group-sm">
+
+              <textarea type="text" row="3" class="form-control" id="LOOKUP_SCRIPT" [(ngModel)]="LOOKUP_SCRIPT"
+                name="DESCRIPTION" maxlength="201"></textarea>
+              <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
+        Description must be less than or equal 200 character
+      </small>     -->
+            </div>
+          </div>
+         
+        </form>
+
+
+
+     
+    <div class="Card">
+    <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="400px"
+      styleClass="p-table-sm override-this" #dt *ngIf="this.LOOKUP_TYPE==='PROCESS'">
+      <ng-template pTemplate="caption" class="border">
+
+        <div class="p-d-flex">
+          <button type="button" class="btn btn-success "  (click)="addObjBtn()">
+            <i class="fa fa-plus"></i> Add Object
+          </button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th pSortableColumn="OBJECT_CODE" style="min-width: 200px; max-width: 200pt;">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Object Code
+              <p-sortIcon field="OBJECT_CODE"></p-sortIcon>
+            </div>
+          </th>
+
+
+
+          <th pSortableColumn="DISPLAY_NAME">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Display Name
+              <p-sortIcon field="DISPLAY_NAME"></p-sortIcon>
+            </div>
+          </th>
+
+          <th pSortableColumn="DEP_OBJECT_CODE" >
+            <div class="p-d-flex p-jc-between p-ai-center">
+              Dep Object Code
+              <p-sortIcon field="DEP_OBJECT_CODE"></p-sortIcon>
+            </div>
+          </th>
+
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th><p-columnFilter type="text" field="OBJECT_CODE"></p-columnFilter></th>
+          <th> <p-columnFilter type="text" field="DISPLAY_NAME"></p-columnFilter></th>
+          <th> <p-columnFilter type="text" field="DEP_OBJECT_CODE"></p-columnFilter></th>
+          <th></th>
+          <th></th>
+        </tr>
+
+
+      </ng-template>
+
+
+      <ng-template pTemplate="body" let-obj>
+        <tr>
+          <td> {{obj.OBJECT_CODE}}</td>
+          <td>{{obj.DISPLAY_NAME}}</td>
+          <td>{{obj.DEP_OBJECT_CODE}}</td>
+          <td class="p-text-center">
+            <i class="fa fa-edit" style="font-size:16px;color:green" (click)="onUpdateObj(obj)" ></i>
+          </td>
+          <!-- <td>
+            <i class="fa fa-trash-o" popover-class="popover" style="font-size:24px;color:red"
+            data-toggle="modal"
+            data-target="#deleteObjModal"> 
+            </i>
+            <!-- (click)="deleteObj(obj.LOOKUP_OBJECT_ID)" -->
+          <td>
+            <i class="fa fa-trash-o" popover-class="popover" style="font-size:16px;color:red" (click)="onDeleteObj(obj)"
+             >
+            </i>
+          </td>
+        </tr>
+        <div class="modal fade" id="deleteObjModal" tabindex="-1" role="dialog"
+          aria-labelledby="deleteObjModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteObjModalLabel">Delete Lookup</h5>
+                <button type="button" class="close" (click)="closeObjModel()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete {{OBJECT_CODE}}?</p>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closeObjModel()">No</button>
+                  <button class="btn btn-danger"  (click)="DeleteObj(obj.LOOKUP_OBJECT_ID)">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template> 
+
+      <ng-template pTemplate="emptymessage">
+        <!-- <span class="emptymessage">Loading Data</span>  -->
+        <tr>
+          <td colspan="5">No Date found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <div class="modal-footer">
+      <button type="button"  class="btn btn-success"  *ngIf="LOOKUP_TYPE==='SCRIPT'" (click)="validate(Form,LOOKUP_SCRIPT)">Validate Script</button>
+      <button type="button" [disabled]="Form.invalid" class="btn btn-success" (click)="onValidateUpdate(Form)">Update Lookup</button>
+      <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
+        (click)="resetForm(Form.value)">Cancel</button>
+      <!-- (click)="reset(addForm.value)" -->
+    </div>
+  </div>
+
+</div>
+  </div>
+  </div>
+
+</div>
+
+<!-- add object form -->
+<div class="modal fade" id="addObject" tabindex="-1" role="dialog" aria-labelledby="addObjectLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addObjectLabel" *ngIf="!this.updateMode">Add New Lookup Object</h5>
+        <h5 class="modal-title" id="addObjectLabel" *ngIf="this.updateMode">Update Lookup Object</h5>
+
+        <button type="button" class="close" (click)="objectDismiss()" aria-label="Close" (click)="resetObjForm(addObj.value)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addObj="ngForm" >
+          <div class="form-group row" style="visibility: hidden;height: 0;"> 
+            <label for="LOOKUP_ID" class="col-sm-2 col-form-label">LOOKUP_ID </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="LOOKUP_ID" [(ngModel)]=this.LOOKUP_ID name="LOOKUP_ID"
+                maxlength="101" required />
+                <input type="text" class="form-control" id="LOOKUP_OBJECT_ID" [(ngModel)]=LOOKUP_OBJECT_ID name="LOOKUP_OBJECT_ID"
+                required />
+            </div>
+            </div>
+            
+        
+          <div class="form-group row">
+            <label for="OBJECT_CODE" class="col-sm-2 col-form-label">Object Code* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="OBJECT_CODE" [(ngModel)]="OBJECT_CODE" name="OBJECT_CODE"
+                maxlength="101" required />
+
+            </div>
+            
+          </div>
+          <div class="form-group row">
+            <label for="DISPLAY_NAME" class="col-sm-2 col-form-label">Display Name* </label>
+            <div class="col-sm-10  input-group-sm">
+              <input type="text" class="form-control" id="DISPLAY_NAME" [(ngModel)]="DISPLAY_NAME" name="DISPLAY_NAME"
+                maxlength="101" required />
+              <!-- <small class="text-danger mt-1"*ngIf="this.LOOKUP_NAME.length==101">
+              Lookup Name must be less than or equal 100 character
+            </small>  -->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="LOOKUP_OBJECT_ID" class="col-sm-2 col-form-label">Dep Object Code</label>
+            <div class="col-sm-10 input-group-sm">
+              <select  class="form-control" id="LOOKUP_OBJECT_ID" class="form-control" [(ngModel)]="LOOKUP_OBJECT_ID" name="LOOKUP_OBJECT_ID" >
+              <option *ngFor="let Dobj of Dobjs" [value]="Dobj.LOOKUP_OBJECT_ID" >
+                {{Dobj.DISPLAY_NAME}} </option></select>
+            </div>
+            
+          </div>
+          
+          
+          <div class="form-group row">
+            <label for="DESCRIPTION" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10  input-group-sm">
+
+              <textarea type="text" row="3" class="form-control" id="DESCRIPTION" [(ngModel)]="DESCRIPTION"
+                name="DESCRIPTION" maxlength="201"></textarea>
+              <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
+        Description must be less than or equal 200 character
+      </small>     -->
+            </div>
+          </div>
+     
+          <div class="modal-footer">
+            <button type="button" *ngIf="!this.updateMode" (click)="onAddObject(addObj)" [disabled]="addObj.invalid" class="btn btn-success">Add Object</button>
+            <button type="button" *ngIf="this.updateMode" [disabled]="addObj.invalid" class="btn btn-success"(click)="onUpdateObjFunc(addObj)">Update Lookup</button>
+
+            <button type="button" class="btn btn-danger" id="add-obj-form" (click)="objectDismiss()"
+              (click)="resetObjForm(addObj.value)">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

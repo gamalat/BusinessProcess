@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,16 @@ import jwt_decode from 'jwt-decode';
 export class AuthService {
  
  // URL : string = "https://192.168.0.9:8443"; 
-  URL : string = "https://192.168.0.9:8082";
+  // URL : string = "https://192.168.0.9:8082";
+  // URL : string = "https://173.249.22.91:8082";
+  private apiServerUrl = environment.apiBaseUrl;
+
 
   constructor(private http: HttpClient) {}
   checklogin(_f:any) { 
+    
     console.log(_f);
-     return this.http.post<any>(this.URL+"/login" , _f )
+     return this.http.post<any>(this.apiServerUrl+"/login" , _f )
     .pipe(map(response=> {
       console.log("response");
       console.log(response);
@@ -28,7 +33,7 @@ export class AuthService {
 logoutUser() {
   var usernamep = sessionStorage.getItem("username");
 
-  return this.http.post<any>(this.URL+"/user/logout?username="+usernamep , {} )
+  return this.http.post<any>(this.apiServerUrl+"/user/logout?username="+usernamep , {} )
     .pipe(map(response=> {
       console.log("response");
       console.log(response);

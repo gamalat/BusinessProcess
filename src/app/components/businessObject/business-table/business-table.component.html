@@ -1,59 +1,79 @@
-<div class="row col-12" style="margin: 0 -27px;">
-    <div class="col-12">
+<div class="row col-12" style="margin: 0 -27px; " >
+    <div class="col-12" style="padding-top:10px;" >
         <app-add-business-object></app-add-business-object>
     </div>
-    <div class="col-4">
+    <div class="col-4" >
 
-        <p-table [value]="AllData" dataKey="name" responsiveLayout="scroll" styleClass="p-table-sm" #dt
-            (onFilter)="handleFilter($event,dt.totalRecords)">
+        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  
+            (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true"  >
     
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 3rem"></th>
-                    <th pSortableColumn="bo_ID">
+            <ng-template pTemplate="header" >
+                <tr [pSelectableRow]="MainData">
+                    <th style="width:0.5rem"></th>
+                    <!-- <th pSortableColumn="bo_ID" >
                         <div class="p-d-flex p-jc-between p-ai-center">
                             ID
                             <p-sortIcon field="bo_ID"></p-sortIcon>
                             <p-columnFilter type="text" field="bo_ID" display="menu"></p-columnFilter>
                         </div>
-                    </th>
-                    <th pSortableColumn="bo_NAME">
+                    </th> -->
+                    <th pSortableColumn="bo_NAME" style="max-width: 200px;">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Bo Name
                             <p-sortIcon field="bo_NAME"></p-sortIcon>
                             <p-columnFilter type="text" field="bo_NAME" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th></th>
-                    <th></th>
+                    <th  style="max-width: 30px;"></th>
+                    <th style="max-width: 30px;" ></th>
                 </tr>
             </ng-template>
 
-
+            <!-- (mouseover)="highlightBo(MainData)" -->
             <ng-template pTemplate="body" let-MainData let-expanded="expanded">
-                <tr (click)="onRowBo(MainData)" (mouseover)="highlightBo(MainData)"
+                <tr (click)="onRowBo(MainData)"  style="height:40px"
                     [ngClass]="{'highlight' : MainData.bo_NAME == selectedName}">
                     <td>
-                        <button type="button" pButton pRipple [pRowToggler]="MainData"
-                            class="p-button-text p-button-rounded p-button-plain"
-                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
-                        </button>
+                    <button type="button" pButton pRipple [pRowToggler]="MainData"
+                     class="p-button-text p-button-rounded p-button-plain"
+                      [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
-                    <td>{{MainData.bo_ID}}</td>
-                    <td>{{MainData.bo_NAME}}</td>
+                    
+                    <!-- <td>{{MainData.bo_ID}}</td> -->
+                    <td style="max-width: 150px;">
+                      {{MainData.bo_NAME}}</td>
                     <td>
-                        <app-add-data-obj [bo]="MainData"></app-add-data-obj></td>
-                  
+                        <!-- <app-add-data-obj [bo]="MainData"  ></app-add-data-obj></td> -->
+                        <i data-toggle="modal"  class="fa fa-plus"  (click)="onPressAdd(MainData)"
+                        style="font-size:16px;color:rgb(17, 92, 14)" ></i> </td>
+
                     <td>
-                        <i class="fa fa-trash-o"popover-class="popover" style="font-size:24px;color:red" mwlConfirmationPopover
-                        [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="center"
-                        (confirm)="onDeleteBo(MainData.bo_ID)"  (cancel)="cancelClicked = true">
-                    </i></td>
+                        <i class="fa fa-trash-o"popover-class="popover" style="font-size:16px;color:red"
+                        data-toggle="modal"  (click)="onPressBo(MainData)"></i>
+                </td>
                         <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red"
                             (click)="onDeleteBo(MainData.bo_ID)"></i></td> -->
                 </tr>
 
-
+                <div class="modal fade" id="deleteBoModal" tabindex="-1" role="dialog" aria-labelledby="deleteBoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="deleteBoModalLabel">Delete Business Object</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                             </button>
+                          </div>
+                          <div class="modal-body">
+                             <p>Are you sure you want to delete {{DboName}}?</p>
+                             <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button (click)="onDeleteBo(DboID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                </div>
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
@@ -65,17 +85,17 @@
                 <tr>
                     <td colspan="7">
                         <div class="p-p-3">
-                            <p-table [value]="MainData.dos" dataKey="id" styleClass="p-table-sm">
+                            <p-table [value]="MainData.dos" dataKey="do_ID" styleClass="p-table-sm">
                                 <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem"></th>
-                    <th pSortableColumn="do_ID">
+                    <!-- <th pSortableColumn="do_ID">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Do ID
                             <p-sortIcon field="do_ID"></p-sortIcon>
                             <p-columnFilter type="text" field="do_ID" display="menu"></p-columnFilter>
                         </div>
-                    </th>
+                    </th> -->
 
 
                     <th pSortableColumn="name">
@@ -89,19 +109,37 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-DetailsData>
-                <tr (click)="onRowDo(DetailsData)" (mouseover)="highlightDo(DetailsData)"
-                    [ngClass]="{'highlight' : DetailsData.do_NAME == selectedName}">
+                <tr (click)="onRowDo(DetailsData)" 
+                    [ngClass]="{'highlight' : DetailsData.do_NAME == DselectedName}">
                     <td></td>
-                    <td>{{DetailsData.do_ID}}</td>
+                    <!-- <td >{{DetailsData.do_ID}}</td> -->
                     <td>{{DetailsData.do_NAME}}</td>
                     <td>
                         <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red"
                             (click)="onDeleteDo(DetailsData.do_ID)"></i></td> -->
-                            <i class="fa fa-trash-o"popover-class="popover" style="font-size:24px;color:red" mwlConfirmationPopover
-                            [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage" placement="center"
-                            (confirm)="onDeleteDo(DetailsData.do_ID)"  (cancel)="cancelClicked = true">
-                        </i></td>
+                            <i class="fa fa-trash-o"popover-class="popover" 
+                            style="font-size:16px;color:red"  (click)="onPressDo(DetailsData)" ></i></td>
                 </tr>
+                
+<div class="modal fade" id="deletedoModal" tabindex="-1" role="dialog" aria-labelledby="deletedoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deletedoModalLabel">Delete Data Object</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete {{DdoName}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteDo(DdoID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
@@ -116,11 +154,90 @@
     </p-table>
 </div>
 
-<div class="col-8">
-    <app-business-attribute></app-business-attribute>
+<div class="col-8" >
+    <app-business-attribute (startReLoadData)="getBo()" ></app-business-attribute>
 </div>
 </div>
 
+<div class="modal fade" id="dataObject" tabindex="-1" role="dialog" aria-labelledby="dataObjectLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="dataObjectLabel">Add Data Object</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset(addForm.value)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #addForm="ngForm" (ngSubmit)="onAddDatasObj(this.DboID,addForm)" >
+        <div class="form-group row" style="visibility: hidden;height: 0;">
+            <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
+            <div class="col-sm-10  input-group-sm">
+                <input type="text" class="form-control"  [(ngModel)]="this.DboID"  id="bo_ID" name="bo_ID" disabled />
+
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="do_CODE" class="col-sm-2 col-form-label">DO Code* </label>
+          <div class="col-sm-10  input-group-sm">
+            <input type="text" class="form-control" id="do_CODE"  [(ngModel)]="do_CODE" name="do_CODE" maxlength="21" required />
+            <small class="text-danger mt-1"*ngIf="this.do_CODE.length==21">
+              Code must be less than or equal 20 character
+            </small> 
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="do_NAME" class="col-sm-2 col-form-label">DO Name* </label>
+          <div class="col-sm-10  input-group-sm">
+            <input type="text" class="form-control" id="do_NAME"  [(ngModel)]="do_NAME"  name="do_NAME" maxlength="101" required />
+            <small class="text-danger mt-1"*ngIf="this.do_NAME.length==101">
+              Name must be less than 100 or equal character
+            </small>  
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="do_TYPE" class="col-sm-2 col-form-label">DO Type* </label>
+            <div class="col-sm-10  input-group-sm">
+              <select class="form-control"  [(ngModel)]="do_TYPE"  name="do_TYPE" id="do_TYPE" #selectElem (change)="setNewType(selectElem.value)" maxlength="20" required>
+                <option *ngFor="let type of lTypes" [value]="type.Name">
+                  {{type.Name}}
+              </option>
+            </select>
+            <small class="text-danger mt-1"*ngIf="this.do_TYPE.length==20">
+              Type must be less than or equal 20 character
+            </small>  
+            </div>
+          </div>
+          <!-- <input type="text" class="form-control" id="do_TYPE" ngModel name="do_TYPE" required /> -->
+
+            
+
+
+        <div class="form-group row">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10  input-group-sm">
+          
+      <textarea type="text" row="3" class="form-control" id="description"  [(ngModel)]="description"  name="description" maxlength="201"></textarea>
+      <small class="text-danger mt-1"*ngIf="this.description.length==201">
+        Description must be less than or equal 200 character
+      </small>    
+    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Data Object</button>
+          <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"(click)="reset(addForm.value)">Cancel</button>
+
+        </div>
+      </form>
+
+
+
+    </div>
+
+  </div>
+</div>
+</div>
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
@@ -128,32 +245,6 @@
             <span aria-hidden="true">×</span>
         </button>
     </div>
-    <!-- <div class="modal-body">
-        <p>Are you sure to delete this?</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
-        <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
-    </div> -->
+    
 </ng-template>
 
-<!-- Delete Modal -->
-<!-- <div class="modal fade" id="deleteBoModal" tabindex="-1" role="dialog" aria-labelledby="deleteBoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="deleteBoModalLabel">Delete business Object</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <p>Are you sure you want to delete {{deleteBo?.bo_NAME}}?</p>
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDeleteBo(deleteBo.bo_ID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-             </div>
-          </div>
-       </div>
-    </div>
-</div> -->

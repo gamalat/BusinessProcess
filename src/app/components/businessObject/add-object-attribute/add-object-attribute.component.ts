@@ -19,11 +19,11 @@ export class AddObjectAttributeComponent implements OnInit  {
   lookups: Lookups[] = [];
   dependants: Dependant[] = [];
   @Input() bo_ID: any;
-  @Input() do_ID: any="";
+  @Input() do_ID: any;
   
-  att_CODE :any;
-  att_NAME:any;
-  
+  att_CODE :any="";
+  att_NAME:any="";
+  description:any="";
   form: any;
   LookUpDisabled=true;
   depAttDisabled=true;
@@ -32,10 +32,10 @@ export class AddObjectAttributeComponent implements OnInit  {
   t:any=0;
   disabled = false;
   dependantChecked=true; //default disable checked
-  att_TYPE: string="";
-  lookup_ID: string="";
-  dep_ATT_ID: string="";
-  description: string="";
+  att_TYPE:any;
+
+  lookup_ID: any;
+  dep_ATT_ID: any;
   ngOnInit(): void { 
     this.attService.getLookupID().subscribe(
       (response: any) => {
@@ -53,19 +53,12 @@ export class AddObjectAttributeComponent implements OnInit  {
   getCodec= () =>{
     if(this.do_ID==undefined){
       this.att_CODE=this.att_NAME+this.bo_ID;
-      console.log(this.att_CODE);
-      // alert(this.att_CODE);
+      console.log("att_CODE",this.att_CODE);
      
     }else{
       this.att_CODE=this.att_NAME+this.do_ID;
-      console.log(this.att_CODE);
-      // alert(this.att_CODE);
-
+      console.log("att_CODE",this.att_CODE);
     }
-    // let CurrentO= this.bo_ID ;
-    // let name = this
-    // alert(CurrentO);
- 
   }
 
 //   getCode(){
@@ -132,6 +125,7 @@ if(values.currentTarget.checked){//true
   this.dependantChecked=false; //enable checked
   this.LookUpDisabled=false;
   this.choice_LIST=1;
+  this.att_TYPE="String"
 }else{
   this.disabled=false
   this.dependantChecked=true; //enable checked
@@ -165,8 +159,8 @@ setNewType(id: any): void {
 }
 
 resetForm(_addForm:any){
-  // this.bo_ID="";
-  // this.do_ID="";
+  this.bo_ID="";
+  this.do_ID="";
   this.att_CODE="";
   this.att_NAME="";
   this.choice_LIST="";
@@ -180,27 +174,34 @@ resetForm(_addForm:any){
   
   constructor(private attService:ObjectAttributeService ) { }
   public onAddAttObj(addForm: NgForm): void {
-    
+    if(this.att_CODE.length>100 || this.att_NAME.length>100 ||this.description.length>200){
+      bootbox.alert({
+        title: "<span style='font-weight: 600; font-size: 20px;'>"+"Error"+"</span>  </i>",
+        message: "<span style='font-weight: 400; font-size: 16px;'>"+"Invaild field length"+"</span>  </i>",
+        callback: function(){ 
+      
+        }
+    });
+    }else{
     console.log(addForm.value);
     this.attService.addAttObject(addForm.value).subscribe(
       (response: any) => {
         if(response.code == "1"){
           bootbox.alert({
-            title: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
-            message: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+" Object Attribute Added Successfully"+"</span>  </i>",
             callback: function(){ 
+              location.reload();
+           
             }
         });
         console.log(response);
-       
-        // // document.getElementById("add-obj-form")?.click();
-        // this.reset(addForm);
-        location.reload();
+      
          }else
          if(response.code == "-2"){
           bootbox.alert({
-            title: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
-            message: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
+            title: "<span style='font-weight: 600; font-size: 20px;  '>"+"Waring"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+" Object Attribute code already exist "+"</span>  </i>",
             callback: function(){ 
             }
         });
@@ -208,17 +209,20 @@ resetForm(_addForm:any){
          }else
          if(response.code == "-3"){
           bootbox.alert({
-            title: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Contact your system administrator"+"</span>  </i>",
             message: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
             callback: function(){ 
             }
         });
-      }
+        
+         }
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
   }
+  }
+
 }
 

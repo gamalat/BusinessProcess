@@ -9,9 +9,9 @@ import { BussinessObject } from '../interfaces/BussinessObject';
 })
 export class BusinessObjectService {
 
-  //private apiServerUrl = environment.apiBaseUrl;
+  private apiServerUrl = environment.apiBaseUrl;
 
-  private apiServerUrl ="https://192.168.0.9:8082";
+  // private apiServerUrl ="https://192.168.0.9:8082";
  // update /PD/api/BO
  //PUT /PD/api/BO/{BO_id}/DataObject //update do
   constructor(private http: HttpClient){}
@@ -33,7 +33,6 @@ export class BusinessObjectService {
     .then(res => <any>res)
     .then(data => { 
       console.log(data);
-
       return data.body;
     
     });
@@ -43,8 +42,8 @@ public deleteBo(BO_id: number) :Observable<void>{
   return this.http.delete<void>(`${this.apiServerUrl}/PD/api/BO/${BO_id}`);
 }
 //delete DO
-public deleteDo(Do_ID: number):Observable<any>{
-  return this.http.delete<any>(`${this.apiServerUrl}/PD/api/BO/DataObject/${Do_ID}`);
+public deleteDo(Do_ID: number):Observable<void>{
+  return this.http.delete<void>(`${this.apiServerUrl}/PD/api/BO/DataObject/${Do_ID}`);
 }
 // public getBusinessObj(): Observable<BussinessObject[]> {
 //   //  PD/api/BO/1680/Attributes   PD/api/BO/1680/Attributes

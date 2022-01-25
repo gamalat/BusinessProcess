@@ -28,6 +28,11 @@ import { AddObjectAttributeComponent } from './components/businessObject/add-obj
 import { ProcessComponent } from './components/businessObject/process/process.component';
 import { AddDataObjComponent } from './components/businessObject/add-data-obj/add-data-obj.component';
 import { UpdateAttributeComponent } from './components/businessObject/update-attribute/update-attribute.component';
+import { PasswordModule } from "primeng/password";
+import { LookupsComponent } from './components/lookups/lookups.component';
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AuditComponent } from './components/audit/audit.component';
 
 
 
@@ -43,15 +48,15 @@ import { UpdateAttributeComponent } from './components/businessObject/update-att
     ProcessrolesearchComponent,
     AddprocessroleComponent,
     AddmemberComponent,
-
-
     AddBusinessObjectComponent,
     BusinessTableComponent,
     BusinessAttributeComponent,
     ProcessComponent,
     AddObjectAttributeComponent,
     AddDataObjComponent,
-    UpdateAttributeComponent
+    UpdateAttributeComponent,
+    LookupsComponent,
+    AuditComponent
 
   ],
   imports: [
@@ -61,6 +66,7 @@ import { UpdateAttributeComponent } from './components/businessObject/update-att
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule, 
+    PasswordModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
@@ -70,7 +76,7 @@ import { UpdateAttributeComponent } from './components/businessObject/update-att
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS , useClass: AuthInterceptor, multi: true },
-
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
 })

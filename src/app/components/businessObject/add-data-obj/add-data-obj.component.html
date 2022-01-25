@@ -22,23 +22,32 @@
             <div class="form-group row">
               <label for="do_CODE" class="col-sm-2 col-form-label">DO Code* </label>
               <div class="col-sm-10  input-group-sm">
-                <input type="text" class="form-control" id="do_CODE"  [(ngModel)]="do_CODE" name="do_CODE" required />
+                <input type="text" class="form-control" id="do_CODE"  [(ngModel)]="do_CODE" name="do_CODE" maxlength="21" required />
+                <small class="text-danger mt-1"*ngIf="this.do_CODE.length==21">
+                  Code must be less than or equal 20 character
+                </small> 
               </div>
             </div>
             <div class="form-group row">
               <label for="do_NAME" class="col-sm-2 col-form-label">DO Name* </label>
               <div class="col-sm-10  input-group-sm">
-                <input type="text" class="form-control" id="do_NAME"  [(ngModel)]="do_NAME"  name="do_NAME" required />
+                <input type="text" class="form-control" id="do_NAME"  [(ngModel)]="do_NAME"  name="do_NAME" maxlength="101" required />
+                <small class="text-danger mt-1"*ngIf="this.do_NAME.length==101">
+                  Name must be less than 100 or equal character
+                </small>  
               </div>
             </div>
             <div class="form-group row">
                 <label for="do_TYPE" class="col-sm-2 col-form-label">DO Type* </label>
                 <div class="col-sm-10  input-group-sm">
-                  <select class="form-control"  [(ngModel)]="do_TYPE"  name="do_TYPE" id="do_TYPE" #selectElem (change)="setNewType(selectElem.value)" required>
+                  <select class="form-control"  [(ngModel)]="do_TYPE"  name="do_TYPE" id="do_TYPE" #selectElem (change)="setNewType(selectElem.value)" maxlength="20" required>
                     <option *ngFor="let type of lTypes" [value]="type.Name">
                       {{type.Name}}
                   </option>
                 </select>
+                <small class="text-danger mt-1"*ngIf="this.do_TYPE.length==20">
+                  Type must be less than or equal 20 character
+                </small>  
                 </div>
               </div>
               <!-- <input type="text" class="form-control" id="do_TYPE" ngModel name="do_TYPE" required /> -->
@@ -49,8 +58,12 @@
             <div class="form-group row">
               <label for="description" class="col-sm-2 col-form-label">Description</label>
               <div class="col-sm-10  input-group-sm">
-                <textarea type="text" row="3" class="form-control" id="description"  [(ngModel)]="description"  name="description"></textarea>
-              </div>
+              
+          <textarea type="text" row="3" class="form-control" id="description"  [(ngModel)]="description"  name="description" maxlength="201"></textarea>
+          <small class="text-danger mt-1"*ngIf="this.description.length==201">
+            Description must be less than or equal 200 character
+          </small>    
+        </div>
             </div>
             <div class="modal-footer">
               <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Data Object</button>

@@ -69,14 +69,16 @@ export class AddmemberComponent implements OnInit {
       RoleId : 	this.roleID ,
       members : this.selectedProducts
     }
+
+    
   console.log(add);
   this.processRole.AddMembers(add).subscribe(
     Response=> {
       console.log(Response);
       if(Response.code == 2){
         bootbox.alert({	
-                title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
+          title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+          message: "<span style='font-weight: 400; font-size: 16px;'>"+"Member Added Successfully"+"</span>  </i>",
                 callback: function(){ 
                   window.location.reload();
                 }
@@ -84,32 +86,26 @@ export class AddmemberComponent implements OnInit {
             $('#MemberProcessRole').modal('hide');
           }
         
+          if(Response.code == "-2"){
+           bootbox.alert({
+             title: "<span style='font-weight: 600; font-size: 20px;  '>"+"Waring"+"</span>  </i>",
+             message: "<span style='font-weight: 400; font-size: 16px;'>"+" Member already exist "+"</span>  </i>",
+             callback: function(){ 
+             }
+         });
+         
+          }
           if(Response.code == "-3"){
-            bootbox.alert({
-                    title: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                    message: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                    callback: function(){ 
-                    }
-                });
-              }
-
-              if(Response.code == "-2"){
-                bootbox.alert({
-                        title: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                        message: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                        callback: function(){ 
-                        }
-                    });
-                  }
+           bootbox.alert({
+             title: "<span style='font-weight: 600; font-size: 20px;'>"+"Contact your system administrator"+"</span>  </i>",
+             message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
+             callback: function(){ 
+             }
+         });
+         
+          }
     });
 
   }
 
 }
-
-
-
-
-
-
-

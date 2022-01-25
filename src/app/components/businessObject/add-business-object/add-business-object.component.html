@@ -14,33 +14,57 @@
       </div>
       <div class="modal-body">
 
-        <form #addForm="ngForm" (ngSubmit)="onAddBusinessObj(addForm)">
+        <form #addForm="ngForm" (ngSubmit)="onAddBusinessObj(addForm)"  >
 
           <div class="form-group row">
             <label for="bo_CODE" class="col-sm-2 col-form-label">BO Code* </label>
             <div class="col-sm-10  input-group-sm">
-              <input type="text" class="form-control" id="bo_CODE" [(ngModel)]="bo_CODE" name="bo_CODE" required />
-            </div>
+              <input type="text" class="form-control" id="bo_CODE" [(ngModel)]="bo_CODE" name="bo_CODE" required maxlength="21" />
+                 
+             <small class="text-danger mt-1"*ngIf="this.bo_CODE.length==21" >
+              Code must be less than 20 character
+            </small>      
+               </div>
           </div>
+
+
           <div class="form-group row">
             <label for="bo_NAME" class="col-sm-2 col-form-label">BO Name* </label>
             <div class="col-sm-10  input-group-sm">
-              <input type="text" class="form-control" id="bo_NAME"  [(ngModel)]="bo_NAME" name="bo_NAME" required />
+              <input type="text" class="form-control" id="bo_NAME"  [(ngModel)]="bo_NAME" name="bo_NAME" required maxlength="101"/>
+              
+              <small class="text-danger mt-1"*ngIf="this.bo_NAME.length==101" >
+                Name must be less than 100 character
+              </small>
             </div>
           </div>
           <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10  input-group-sm">
-              <textarea type="text" row="3" class="form-control" id="description" [(ngModel)]="description" name="description"></textarea>
+              <textarea type="text" row="3" class="form-control" id="description" [(ngModel)]="description" name="description" id="description" maxlength="201" ></textarea>
+              <!-- <small class="text-danger mt-1" *ngIf="description.maxlength==200">description length must be less than 200 character .</small> -->
+              <small class="text-danger mt-1" *ngIf="this.description.length==201"  >
+                Description must be less than 200 character
+              </small>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Business Object</button>
+            <button type="submit" [disabled]="addForm.invalid"  class="btn btn-success" >Add Business Object</button> 
             <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal" (click)="reset(addForm.value)" >Cancel</button>
 
           </div>
         </form>
-
+        <!-- <script>
+          function pswderr() {
+              var bo_NAME = document.getElementById("bo_NAME").value;
+              var bo_CODE = document.getElementById("bo_CODE").value;
+              if (bo_NAME.length>=100 && bo_CODE.length>=20) {
+                  return false;
+              } else {
+                  return true;
+                  }
+          }
+          </script> -->
 
 
       </div>

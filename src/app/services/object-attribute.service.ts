@@ -10,10 +10,11 @@ import { Dependant } from '../interfaces/Dependant';
 })
 export class ObjectAttributeService {
  
- 
+  private apiServerUrl = environment.apiBaseUrl;
+
   // https://173.249.22.91:8082
 
-  private apiServerUrl ="https://192.168.0.9:8082";
+  // private apiServerUrl ="https://192.168.0.9:8082";
   constructor(private http: HttpClient){}
 
   
@@ -23,8 +24,8 @@ export class ObjectAttributeService {
       return this.http.get<any>(`${this.apiServerUrl}/PD/api/BO/${Obj_id}/Attributes`);
   } 
   public getAttributeById(att_id:number): Observable<ObjectAttribute[]> {
-  
-        return this.http.get<ObjectAttribute[]>(`${this.apiServerUrl}/PD/api/BO/Attributes/${att_id}`);
+    
+        return  this.http.get<ObjectAttribute[]>(`${this.apiServerUrl}/PD/api/BO/Attributes/${att_id}`);
     }
   public getAttributeObjForDo(DO_id:number): Observable<ObjectAttribute[]> {
     //  PD/api/BO/1680/Attributes   PD/api/BO/1680/Attributes

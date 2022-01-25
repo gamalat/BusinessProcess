@@ -44,20 +44,20 @@ export class AddprocessroleComponent implements OnInit {
         console.log(Response);
         if(Response.code == "1"){
           bootbox.alert({
-                  title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                  message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+" </span>  </i>",
-                  callback: function(){ 
+              title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+              message: "<span style='font-weight: 400; font-size: 16px;'>"+"Process Role Added Successfully"+"</span>  </i>",
+                    callback: function(){  
                     window.location.reload();
                   }
               });
               $('#ProcessRole').modal('hide');
             }
           
-            if(Response == "-2"){
+            if(Response.code == "-2"){
               bootbox.alert({
-                      title: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                      message: "<span style='font-weight: 400; font-size: 16px; color:#a33'>"+Response.body+"</span>  </i>",
-                      callback: function(){ 
+                title: "<span style='font-weight: 600; font-size: 20px;  '>"+"Waring"+"</span>  </i>",
+                message: "<span style='font-weight: 400; font-size: 16px;'>"+" Process Role  already exist "+"</span>  </i>",
+                callback: function(){ 
                       }
                   });
                 }
@@ -65,6 +65,10 @@ export class AddprocessroleComponent implements OnInit {
 
   }
  
+
+
+
+
  reset(_f:any){
   _f.resetForm({
     "LAST_MODIFIED_BY": sessionStorage.getItem("username") ,

@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessroleService {
-  URL : string = "https://192.168.0.9:8082";
+  // URL : string = "https://173.249.22.91:8082";
+   private URL = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
 

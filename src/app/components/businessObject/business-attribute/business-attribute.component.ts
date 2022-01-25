@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ObjectAttribute } from 'src/app/interfaces/ObjectAttribute';
 import { BusinessObjectService } from 'src/app/services/business-object.service';
 import { DataObjectService } from 'src/app/services/data-object.service';
 import { ObjectAttributeService } from 'src/app/services/object-attribute.service';
+import { UpdateAttributeComponent } from '../update-attribute/update-attribute.component';
 declare var bootbox: any;
+declare var $: any;
 
 @Component({
   selector: 'app-business-attribute',
@@ -13,11 +15,20 @@ declare var bootbox: any;
 })
 export class BusinessAttributeComponent {
 
+  // @ViewChild(BusinessTableComponent)
+  // private bc!: BusinessTableComponent;
+  
+  @ViewChild(UpdateAttributeComponent)
+  private updateAttributeComponent!: UpdateAttributeComponent;
+  @Output()
+  startReLoadData: EventEmitter<any> = new EventEmitter<any>();
+
   popoverTitle = 'Confirm';
   popoverMessage = 'Are You Sure to delete';
   confirmClicked = false;
   cancelClicked = false;
   panelOpenState = false;
+  dType=true;
   @Input() par: any;
 [x:string]:any;
   // bo_NAME=this.boc.onRowBo
@@ -25,10 +36,17 @@ export class BusinessAttributeComponent {
   CODE: any;
   description: any;
   ID: any;
+  AllData:any= [];
   do_ID:any;
   do_TYPE: any;
   rowData1: any = [];
+  att_ID: any;
   objects: ObjectAttribute[] = [];
+  display=false;
+  DAttID:any;
+  DAttName:any;
+   cloneBussObj:any;
+   cloneDataObj:any;
   // boService!: BusinessObjectService;
   lTypes: any[] = [
     { id: 1, Name: 'Form' },
@@ -55,26 +73,32 @@ setNewType(id: any): void {
     this.selectedName = MainData.att_NAME;
   }
 
-
+  onPress(val: any){
+    console.log("val ", val);
+    this.att_ID = val;
+    this.display=true;
+    this.updateAttributeComponent.getAttbyID(val);
+  }
   // get all attribute with object id
   getAttributeObj(Obj_id: number, selectedData: any) {
     console.log(Obj_id);
-    console.log(selectedData);
+    console.log("selected data",selectedData);
+     this.cloneBussObj=Object.assign({},selectedData);
+    console.log("cloneBussObj data",this.cloneBussObj);
+
     this.NAME = selectedData.bo_NAME;
     this.ID = selectedData.bo_ID;
     this.description = selectedData.description;
     this.CODE = selectedData.bo_CODE;
     this.do_TYPE =null;
-
- 
-    
     this.ObjectAttributeService.getAttributeObjForBo(Obj_id).subscribe(
       (response: any) => {
         console.log("response.body");
-
         console.log(response.body);
+        this.AllData=response.body;
         this.rowData = response.body;
-        console.log(this.rowData);
+        console.log("DDDDDDDDD")
+        console.log(this.AllData);
 
       },
       (error: HttpErrorResponse) => {
@@ -84,6 +108,8 @@ setNewType(id: any): void {
   }
   //get all do 
   getAttributeObjD(Obj_id: number, selectedData: any) {
+    this.cloneDataObj=Object.assign({},selectedData);
+    console.log("cloneObj data",this.cloneDataObj);
     console.log(Obj_id);
     console.log(selectedData);
     this.NAME = selectedData.do_NAME;
@@ -107,41 +133,107 @@ setNewType(id: any): void {
   //delete Bo from table
   public onDeleteAtt(Att_ID: number): void {
     this.ObjectAttributeService.deleteAtt(Att_ID).subscribe(
-      (response: void) => {
-        console.log(response);
-        // window.location.reload();
-        // this.getBo();
+      (response: any) => {
+        if(response.code == "-3"){
+          bootbox.alert({
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"contact your system administrator"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
+            callback: function(){ 
+            }
+        });
+        
+         }
+         if(response.code == "3"){
+          bootbox.alert({
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+" Object Attribute deleted successfully "+"</span>  </i>",
+            callback: function(){ 
+              window.location.reload();
+            
+            }
+        });
+        
+         }
+
+         if(response.code == "-6"){
+          bootbox.alert({
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Waring"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+" Object Attribute has Child"+"</span>  </i>",
+            callback: function(){ 
+            }
+        });
+        
+         }
+
+       
+         if(response.code == ("-1" || "-4")){  
+          bootbox.alert({
+        
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Waring"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+" Object Attribute not exist"+"</span>  </i>",
+            callback: function(){ 
+            }
+        });
+        
+         }
+     
+        console.log(response.code);
+     
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
   }
+
+//on press delete icon
+  public onPressAtt(MainData:any){
+    $("#deleteAttModal").modal('show');
+    console.log("MainData",MainData)
+    this.DAttID=MainData.att_ID;
+    this.DAttName=MainData.att_NAME;
+  }
   //edit business object 
   public onEditBusinessObj(_f: any): void {
     console.log(_f);
+    
+    // const food = { beef: '🥩', bacon: '🥓' };
 
+    // const cloneFood = { ...food };
+    
+    // console.log(cloneFood);
     if(_f.do_TYPE == null){
     console.log(_f);
     var bobj = {
-      "bo_ID": _f.ID, "bo_NAME": _f.NAME, "description": _f.description,"do_CODE":_f.CODE
+      "bo_ID": _f.ID, "bo_NAME": _f.NAME, "description": _f.description,"bo_CODE":_f.CODE
     }
-    console.log("bobj"+bobj)
+    //  var ob={
+    //   "bo_ID":this.ID ,"bo_NAME":this.NAME ,"description":this.description ,"bo_CODE":this.CODE
+    // }
     this.boService.editBusinessObject(bobj).subscribe(
       response => {
         console.log(response.code);
+        console.log(bobj);
+        sessionStorage.setItem("BOject",JSON.stringify(bobj));
+
+
         if (response.code == "2") {
           bootbox.alert({
-            title: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
-            message: "<span style='font-weight: 400; font-size: 16px;'>" + response.body+ "</span>  </i>",
+            title: "<span style='font-weight:600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>" + "Business Object updated successfully."+ "</span>  </i>",
             callback: function () {
-              window.location.reload();
+               window.location.reload();
+            // this.onRowBo(bobj);
+
+            // console.log("jjjjj",this.startDoingFilter.emit());
+              // console.log("hhhh")
             }
           });
         }
+        
         else if(response.code == "-3"){
           bootbox.alert({
-            title: "<span style='font-weight: 400; font-size: 16px;'>"+response.body+"</span>  </i>",
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+response.body+"</span>  </i>",
             message: "<span style='font-weight: 400; font-size: 16px;'>" + response.body+ "</span>  </i>",
             callback: function () {
               window.location.reload();
@@ -155,6 +247,9 @@ setNewType(id: any): void {
       }
       this.doService.editDataObject(_f.ID,Dobj).subscribe(
         Response => {
+         // sessionStorage.setItem("DoID",this.do_ID); //set daata Id in session foe selected 
+          sessionStorage.setItem("DOject",JSON.stringify(Dobj));
+
           console.log(Response.code);
           console.log(Response.body);
 
@@ -162,8 +257,8 @@ setNewType(id: any): void {
           console.log("bo id"+_f.ID);
           if (Response.code == "2") {
             bootbox.alert({
-              title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-              message: "<span style='font-weight: 400; font-size: 16px;'>" + Response.body + "</span>  </i>",
+              title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+              message: "<span style='font-weight: 400; font-size: 16px;'>" +"Data Object updated successfully" + "</span>  </i>",
               callback: function () {
                 window.location.reload();
               }
@@ -171,17 +266,44 @@ setNewType(id: any): void {
           }
           else if(Response.code == "-3"){
             bootbox.alert({
-              title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
+              title: "<span style='font-weight: 600; font-size: 20px;'>"+Response.body+"</span>  </i>",
               message: "<span style='font-weight: 400; font-size: 16px;'>" + Response.body + "</span>  </i>",
               callback: function () {
-                window.location.reload();
+                // window.location.reload();
               }
             });
           }
         });
     }
   }
-  resetForm(_f:any){
+
+
+
+
+  public onCancelBusinessObj(): void {
+    // console.log(_f);
+
+    if(this.do_TYPE == null){
+     
+    this.ID= this.cloneBussObj.bo_ID;
+    console.log(this.cloneBussObj.bo_ID)
+     this.NAME= this.cloneBussObj.bo_NAME;
+     console.log(this.cloneBussObj.bo_NAME)
+     this.description= this.cloneBussObj.description;
+     console.log(this.cloneBussObj.bo_CODE)
+     this.CODE=  this.cloneBussObj.bo_CODE ;
+   
+    }else{
+      this.ID=this.cloneDataObj.bo_ID;
+      this.do_ID=this.cloneDataObj.do_ID;
+      this.NAME=this.cloneDataObj.do_NAME
+      this.description=this.cloneDataObj.description;
+      this.CODE=this.cloneDataObj.do_CODE;
+      this.do_TYPE=this.cloneDataObj.do_TYPE;
+      
+    }
+  }
+  resetForm(){
    this.do_ID="";
    this.ID="";
    this.CODE="";
@@ -190,35 +312,6 @@ setNewType(id: any): void {
    this.do_TYPE="";
 
   }
-  // public UpdateSubmit(_f:any){
-
-  //   this.ObjectAttributeService.UpdateBo(_f).subscribe(
-  //     (    Response: string)=> {
-  //       console.log(Response);
-  //       if(Response == "1"){
-  //         bootbox.alert({
-  //                 title: "<span style='font-weight: 400; font-size: 16px;'>"+"Transaction Completed Successfully"+"</span>  </i>",
-  //                 message: "<span style='font-weight: 400; font-size: 16px;'>"+"Transaction Completed Successfully "+"</span>  </i>",
-  //                 callback: function(){ 
-  //                   window.location.reload();
-  //                 }
-  //             });
-  //           }
-  //         });
-  //       }
-  // public searchObjectByName(key: string): void {
-  //   const results: ObjectAttribute[] = [];
-  //   for (const obj of this.objects) {
-  //     if (obj.att_NAME.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-  //       results.push(obj);
-  //   }
-
-  //   this.objects = results;
-
-  //   if (results.length === 0 || !key)
-  //     this.getAttributeObj(1680 , '');
-
-
 }
 function Obj_id(Obj_id: any) {
   throw new Error('Function not implemented.');

@@ -3,6 +3,10 @@ p-table tr.highlight {
     color: #000;
     
  }
+ /* p-table tr{
+   min-width: 200px;
+   max-width: 200px;
+ } */
 
  .emptymessage{
     color: #a33;
@@ -13,3 +17,15 @@ p-table tr.highlight {
    color: #000;
    max-width: 100%;
  }
+ #divTable{
+   border: 1px solid #dadada;
+  }
+
+  /* caption {
+    border: 1px solid #dadada;
+    /* padding: 2em; */
+    /* width: 80%;
+    font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+  } */ 
+
+ 

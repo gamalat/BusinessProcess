@@ -1,13 +1,53 @@
 
  
- p-table tr.highlight {
-    background-color:rgb(246, 252, 246) !important;
+ /* p-table tr.highlight { */
+    /* background-color:rgb(190, 233, 190) !important; */
+    /* background-color:rgb(246, 252, 246) !important;
     color: #000;
     
+    
+ } */
+
+ .highlight{
+  background-color:rgb(246, 252, 246) !important;
+  color: #000;
  }
+
+ #divTable{
+  border: 1px solid #dadada;
+  padding: 5px;
+  margin: 5px;
+ }
+
+
+ /* p-table tr{
+   background-color:#fff !important;
+ } */
 
  .emptymessage{
    color: #a33;
    margin-left: 44%;
    font-weight: 600;
 }
+.popover{
+  text-align: center;
+  display: none; /* Hidden by default */
+  width: 400px; 
+  min-width: 400px;
+  height: 400px;
+  overflow: auto; /* Enable scroll if needed */
+  padding: 50px;
+}
+
+
+.popover-title{
+ color: black;
+  width: 100%; 
+}
+.popover-message{
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid rgb(0, 0, 0);
+  width: 100%; 
+}
+

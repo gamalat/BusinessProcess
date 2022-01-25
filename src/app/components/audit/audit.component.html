@@ -1,0 +1,207 @@
+<!-- <form style="margin-top: 22px;">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputEmail4">Email</label>
+    </div>
+    <div class="form-group col-md-3">
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+  </div>
+  </form> -->
+
+<!--Start Search-->
+
+<!-- <mat-expansion-panel [expanded]="true"> 
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      البحث فى امر التوريد
+    </mat-panel-title>
+  </mat-expansion-panel-header> -->
+
+  <form #f="ngForm"(ngSubmit)="search(f)">
+   
+    <br>
+    <div class="searchDiv">
+
+      <!-- <div class="col-lg-5 col-md-3  " style="display: inline-flex;">
+        <div class="col-lg-5">
+          <label for="action_ID" class="col-form-label">Action ID</label>
+        </div>
+        <div class="col-lg-8">
+          <div style="display: flex;">
+            <input name="action_ID" id="action_ID" [(ngModel)]="action_ID" class="form-control" type="number">
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-lg-5 col-md-5  col-xs-6 col-sm-6" style="display: inline-flex;">
+        <div class="col-lg-5">
+          <label for="action" class="col-form-label">Action </label>
+        </div>
+        <div class="col-lg-8">
+          <div style="display: flex;">
+            <input  name="action" id="action"  [(ngModel)]="action" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 col-md-5  " style="display: inline-flex;">
+        <div class="col-lg-5">
+          <label for="action_BY" class="col-form-label">Action By</label>
+        </div>
+        <div class="col-lg-8">
+          <div style="display: flex;">
+            <input name="action_BY" id="action_BY" [(ngModel)]="action_BY" class="form-control" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 col-md-5  " style="display: inline-flex;">
+        <div class="col-lg-5">
+          <label for="action_DATE" class="col-form-label">Action Date</label>
+        </div>
+        <div class="col-lg-8">
+          <div style="display: flex;">
+            <input name="action_DATE" id="action_DATE" [(ngModel)]="action_DATE"  class="form-control" type="datetime-local">
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-5 col-md-5" style="display: inline-flex;">
+        <div class="col-lg-5">
+          <label for="notes" class="col-form-label">Notes</label>
+        </div>
+        <div class="col-lg-8">
+          <div style="display: flex;">
+            <input name="notes" id="notes" [(ngModel)]="notes"  class="form-control" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12" style="margin-bottom: 10px;"> 
+        <div  class="divStyle">
+        <button type="submit" id="submitBtn" class="btn btn-success btn-sm mb-1" [disabled]=f.form.invalid >
+          <i class="fa fa-search" aria-hidden="true"></i>
+          Search </button>
+        <button type="button" id="resetBtn" class="btn btn-primary btn-sm mb-1" style="margin-left: 20px;" (click)="reset()">Reset 
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    </div>
+  </form>
+<!-- </mat-expansion-panel> --> 
+
+<p-table [value]="audits" dataKey="action_ID" id="body" responsiveLayout="scroll" styleClass="p-table-sm override-this"
+  #dt>
+  <!-- [scrollable]="true" [rows]="100" scrollHeight="900px"
+  [virtualScroll]="true" [virtualRowHeight]="100"> -->
+  <!-- [rowsPerPageOptions]="[5,10,25,50]"  [rowHover]="true"  [(first)]="first" -->
+  <!-- [paginator]="true"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" -->
+  <!-- [rows]="rows" [showCurrentPageReport]="true" sortMode="multiple"  -->
+
+  <ng-template pTemplate="header">
+    <tr>
+
+      <th pSortableColumn="action_ID">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Action ID
+          <p-sortIcon field="action_ID"></p-sortIcon>
+        </div>
+      </th>
+
+
+
+      <th pSortableColumn="action">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Action
+          <p-sortIcon field="action"></p-sortIcon>
+        </div>
+      </th>
+
+      <th pSortableColumn="action_BY">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Action By
+          <p-sortIcon field="action_BY"></p-sortIcon>
+        </div>
+      </th>
+
+      <th pSortableColumn="action_DATE">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Action Date
+          <p-sortIcon field="action_DATE"></p-sortIcon>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <!-- <ng-template pTemplate="header">
+   
+    <tr>
+
+      <th>
+        <p-columnFilter type="text" field="action_ID" ></p-columnFilter>
+      </th>
+
+      <th>
+         <p-columnFilter type="text" field="action"></p-columnFilter>
+
+      </th>
+      <th>
+         
+         <p-columnFilter type="text" field="action_BY"></p-columnFilter>
+
+      </th>
+      <th>
+        <p-columnFilter type="date" field="action_DATE">
+            <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar dateFormat="mm/dd/yy  HH:mm" (onSelect)="filter($event)">
+                    </p-calendar>
+              </ng-template>
+        </p-columnFilter>
+
+       
+      </th>
+      
+      
+    </tr>
+
+  </ng-template> -->
+
+
+  <ng-template pTemplate="body" let-audit>
+    <tr>
+      <!-- (mouseover)="highlightlookup(processes)" [ngClass]="{'highlight' : processes.process_NAME == selectedName}" -->
+      <td> {{audit.action_ID}}</td>
+      <td>{{audit.action}}</td>
+
+      <td>{{audit.action_BY}}</td>
+
+      <td>{{audit.action_DATE}}</td>
+
+    </tr>
+
+  </ng-template>
+  <ng-template style="width: 100%; display: table-caption; " pTemplate="footer">
+
+    <p-button type="button" styleClass="p-button-text" style="float: right; display: table-caption;"
+      (click)="onReadMore()"  > Next &raquo;</p-button>
+      <p-button type="button" styleClass="p-button-text" style="float: right; display: table-caption;"
+      (click)="search(f)"  > Next Search &raquo;</p-button>
+    <p-button type="button" styleClass="p-button-text" style="float: left;" (click)="pervious()" *ngIf="this.PageNo>1">
+      &laquo; Pervious</p-button>
+
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <!-- <span class="emptymessage">Loading Data</span>  -->
+    <tr>
+      <td  id="emptymessage"  colspan="5">{{this.errorMsg}}</td>
+    </tr>
+  </ng-template>
+
+
+</p-table>

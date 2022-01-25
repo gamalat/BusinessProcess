@@ -61,9 +61,10 @@ export class ProcessroledetailsComponent implements OnInit {
         console.log(Response);
         if(Response.code == "2"){
           bootbox.alert({
-                  title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                  message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                  callback: function(){ 
+            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
+            message: "<span style='font-weight: 400; font-size: 16px;'>"+"Process Role updated Successfully"+"</span>  </i>",
+                  callback: function(){  
+         
                     window.location.reload();
                   }
               });
@@ -71,20 +72,20 @@ export class ProcessroledetailsComponent implements OnInit {
             else
             if(Response.code == "-2"){
               bootbox.alert({
-                      title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                      message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                      callback: function(){ 
+                title: "<span style='font-weight: 600; font-size: 20px;'>"+"Waring"+"</span>  </i>",
+                message: "<span style='font-weight: 400; font-size: 16px;'>"+"Process Role already exist !"+"</span>  </i>",
+                      callback: function(){  
                         window.location.reload();
                       }
                   });
                 }
 
                 else
-                if(Response.code == "-3"){
+                if(Response.code == "-4"){
                   bootbox.alert({
-                          title: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                          message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
-                          callback: function(){ 
+                    title: "<span style='font-weight: 600; font-size: 20px;'>"+"contact your system administrator"+"</span>  </i>",
+                    message: "<span style='font-weight: 400; font-size: 16px;'>"+Response.body+"</span>  </i>",
+                    callback: function(){ 
                             window.location.reload();
                           }
                       });
@@ -102,9 +103,9 @@ export class ProcessroledetailsComponent implements OnInit {
   }
 
   reset(){
-    this.ROLE_ID = this.RoleRow.ROLE_ID ;
-    this.ROLE_NAME = this.RoleRow.ROLE_NAME ;
-    this.DESCRIPTION = this.RoleRow.DESCRIPTION ;
+    this.ROLE_ID = "" ;
+    this.ROLE_NAME = "" ;
+    this.DESCRIPTION ="" ;
    }
     
   }

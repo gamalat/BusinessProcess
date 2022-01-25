@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { DataObj } from '../interfaces/DataObj';
 
 @Injectable({
@@ -10,8 +11,9 @@ export class DataObjectService {
 
   
   
+  private apiServerUrl = environment.apiBaseUrl;
 
-  private apiServerUrl ="https://192.168.0.9:8082";
+  // private apiServerUrl ="https://192.168.0.9:8082";
 
   constructor(private http: HttpClient){}
   public editDataObject(BO_id: number ,_f:any):Observable<any> {

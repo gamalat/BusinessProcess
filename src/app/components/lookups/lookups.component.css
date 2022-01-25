@@ -1,0 +1,28 @@
+.emptymessage{
+    color: #a33;
+text-align: center;
+    align-items: center;
+    font-weight: 600;
+ }
+ p-table tr.highlight {
+    background-color:rgb(246, 252, 246) !important;
+    color: #000;
+    
+ }
+
+ /* body {
+    padding:1em;
+    font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+  } */
+/* .pi{
+    font-size: 16px;
+} */
+  .pi.pi-check-circle {
+      color: green;
+  }
+  .pi.pi-times-circle{
+      color: red;
+  }
+  /* .Card{
+      margin: 5pt;
+  } */

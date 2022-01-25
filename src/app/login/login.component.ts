@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+declare var bootbox:any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,30 +10,42 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 [x:string]:any;
-  constructor( private router: Router , private authservice: AuthService) { }
+LoginMode = "0";
 
+
+
+  constructor( private router: Router , private authservice: AuthService) { }
+  
   ngOnInit(): void {
   }
 
-  login(){
+  login(_f:any){
+    console.log(_f);
+    // root - root1234
     var datalogin = {
-      "username": "root",
-      "password": "root1234"
+      "username": _f.name,
+      "password": _f.password
+      // "username": "root",
+      // "password": "root1234"
     };
+    //"LoginMode":_f.LoginMode
   //  console.log(datalogin);
-    this.authservice.checklogin(datalogin).subscribe(
+    this.authservice.checklogin(datalogin ).subscribe(
       Response => {
          console.log(Response);
          if(Response){
           this.router.navigate(["/processrole"]);
 
          }else{
-          this.showErrorMessage = "UserName Or Password Not Valid";
+          this.showErrorMessage = "Invalid username or password";
+
         }
       },
       error => {
         if(error.status == 403){
-        this.showErrorMessage = "UserName Or Password Not Valid";
+        this.showErrorMessage = "Invalid username or password";
+        // bootbox.alert("<span style='color:#a33;font-weight: 800;'>Invalid username or password</span>  </i>");
+
         }
           console.log(error);
       }
