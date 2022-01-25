@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
- apiBaseUrl:'https://127.0.0.1:8082' 
-  //  apiBaseUrl:'https://173.249.22.91:8082'
+//  apiBaseUrl:'https://127.0.0.1:8082' 
+   apiBaseUrl:'https://173.249.22.91:8082'
 
 
   // 'https://173.ى249.22.91:8082'
