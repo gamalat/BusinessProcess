@@ -65,18 +65,35 @@ button:focus {
 .divStyle{
  position: relative;   
 }
-#resetBtn
+.x{
+    /* background: aqua; */
+    margin: 20px;
+    padding: 10px;
+}
+/* #resetBtn
 { 
     position: absolute;
         right: 160px;
         
-}
+} */
 #submitBtn{
-    position: relative;
-    left: 750px;
+margin-right: 10px;
    
 }
 
+#searchForm{
+    margin-top: 80px;
+}
+.form-row {
+    margin: 0px 5px 5px 0px;
+   
+}
+.form-group {
+    margin-bottom: 1px;
+}
+#btnStyle{
+    margin-right: 10px;
+    text-align: end;}
 /* .btn btn-primary{
     position: absolute;
     

@@ -19,6 +19,7 @@ export class AuditComponent implements OnInit {
   errorMsg:string="No Date found.";
   SPageNo:any=1;
   Size :number=100;
+  searchFlag:boolean=false;
   constructor(private auditService:AuditService ) { }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class AuditComponent implements OnInit {
     );
   }
   public search(f:NgForm){
+    this.searchFlag=true;
     this.auditService.AuditٍSearch(this.SPageNo,this.Size,f.value).subscribe(
       (response: any) => {      
         console.log("audit search")
@@ -72,7 +74,6 @@ export class AuditComponent implements OnInit {
     this.action="";
     this.action_BY="";
     console.log("audit oooo")
-
     this.action_DATE="";
     this.notes="";
     this.getAllAudit(1,100);

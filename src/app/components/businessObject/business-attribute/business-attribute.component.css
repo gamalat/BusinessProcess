@@ -7,7 +7,9 @@ p-table tr.highlight {
    min-width: 200px;
    max-width: 200px;
  } */
-
+#btnStyle{
+  text-align: left;
+}
  .emptymessage{
     color: #a33;
     margin-left: 44%;

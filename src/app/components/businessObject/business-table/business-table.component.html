@@ -4,7 +4,7 @@
     </div>
     <div class="col-4" >
 
-        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  
+        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
             (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true"  >
     
             <ng-template pTemplate="header" >

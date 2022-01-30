@@ -1,5 +1,5 @@
 <p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="body" responsiveLayout="scroll"
-  styleClass="p-table-sm override-this" #dt >
+styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt >
   <ng-template pTemplate="caption" class="border">
 
     <div class="p-d-flex">
@@ -91,7 +91,7 @@
 
       <td> {{lookup.LOOKUP_NAME}}</td>
       <td>{{lookup.LOOKUP_TYPE}}</td>
-      <td>
+      <td id="dependantIcon">
         <i class="pi"
           [ngClass]="{'true-icon pi-check-circle': lookup.DEPENDANT, 'false-icon pi-times-circle': !lookup.DEPENDANT}"></i>
       </td>

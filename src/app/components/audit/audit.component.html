@@ -21,23 +21,39 @@
       البحث فى امر التوريد
     </mat-panel-title>
   </mat-expansion-panel-header> -->
-
-  <form #f="ngForm"(ngSubmit)="search(f)">
-   
+  <form #f="ngForm"(ngSubmit)="search(f)" id="searchForm">
+    <div class="form-row"> 
+     
+      <div class="form-group col-md-3">
+        <label for="action">Action</label>
+        <input type="text" [(ngModel)]="action" name="action"  class="form-control" id="action" placeholder="Action">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="action_BY">Action By</label>
+        <input type="text" class="form-control" id="action_BY" placeholder="Action By"  name="action_BY" [(ngModel)]="action_BY">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="action_DATE">Action Date</label>
+        <input type="datetime-local" class="form-control" 
+         id="action_DATE" placeholder="Action Date" name="action_DATE" [(ngModel)]="action_DATE">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="notes">Notes</label>
+        <input type="text" class="form-control" [(ngModel)]="notes" id="notes" name="notes" placeholder="Notes">
+      </div>
+      </div>
+      <div id="btnStyle">
+        <button type="submit" id="submitBtn" class="btn btn-success btn-sm mb-1" [disabled]=f.form.invalid  >
+        <i class="fa fa-search" aria-hidden="true"></i>
+        Search </button>
+        <button type="button" id="resetBtn" class="btn btn-primary btn-sm mb-1"  (click)="reset()">Reset 
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div> 
+    </form>
+  <!-- <form #f="ngForm"(ngSubmit)="search(f)">
     <br>
     <div class="searchDiv">
-
-      <!-- <div class="col-lg-5 col-md-3  " style="display: inline-flex;">
-        <div class="col-lg-5">
-          <label for="action_ID" class="col-form-label">Action ID</label>
-        </div>
-        <div class="col-lg-8">
-          <div style="display: flex;">
-            <input name="action_ID" id="action_ID" [(ngModel)]="action_ID" class="form-control" type="number">
-          </div>
-        </div>
-      </div> -->
-
       <div class="col-lg-5 col-md-5  col-xs-6 col-sm-6" style="display: inline-flex;">
         <div class="col-lg-5">
           <label for="action" class="col-form-label">Action </label>
@@ -93,10 +109,9 @@
       </div>
     </div>
     </div>
-  </form>
-<!-- </mat-expansion-panel> --> 
+  </form> -->
 
-<p-table [value]="audits" dataKey="action_ID" id="body" responsiveLayout="scroll" styleClass="p-table-sm override-this"
+<p-table [value]="audits"  dataKey="action_ID" id="body" responsiveLayout="scroll" styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
   #dt>
   <!-- [scrollable]="true" [rows]="100" scrollHeight="900px"
   [virtualScroll]="true" [virtualRowHeight]="100"> -->
@@ -187,19 +202,19 @@
   </ng-template>
   <ng-template style="width: 100%; display: table-caption; " pTemplate="footer">
 
-    <p-button type="button" styleClass="p-button-text" style="float: right; display: table-caption;"
-      (click)="onReadMore()"  > Next &raquo;</p-button>
+    <p-button type="button" styleClass="p-button-text"
+      (click)="onReadMore()"  *ngIf="this.searchFlag==false" > Next &raquo;</p-button>
       <p-button type="button" styleClass="p-button-text" style="float: right; display: table-caption;"
-      (click)="search(f)"  > Next Search &raquo;</p-button>
-    <p-button type="button" styleClass="p-button-text" style="float: left;" (click)="pervious()" *ngIf="this.PageNo>1">
-      &laquo; Pervious</p-button>
+      (click)="search(f)" *ngIf="this.searchFlag==true" > Next  &raquo;</p-button>
+    <!-- <p-button type="button" styleClass="p-button-text" style="float: left;" (click)="pervious()" *ngIf="this.PageNo>1">
+      &laquo; Pervious</p-button> -->
 
   </ng-template>
 
   <ng-template pTemplate="emptymessage">
     <!-- <span class="emptymessage">Loading Data</span>  -->
     <tr>
-      <td  id="emptymessage"  colspan="5">{{this.errorMsg}}</td>
+      <td  id="emptymessage"  colspan="5">No Data Found</td>
     </tr>
   </ng-template>
 
