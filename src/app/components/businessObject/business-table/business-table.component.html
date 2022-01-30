@@ -1,10 +1,10 @@
 <div class="row col-12" style="margin: 0 -27px; " >
-    <div class="col-12" style="padding-top:10px;" >
+    <div class="col-12" style="padding-top:10px; " >
         <app-add-business-object></app-add-business-object>
     </div>
     <div class="col-4" >
 
-        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
+        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  
             (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true"  >
     
             <ng-template pTemplate="header" >

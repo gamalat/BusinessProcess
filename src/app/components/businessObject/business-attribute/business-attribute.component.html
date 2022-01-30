@@ -75,12 +75,12 @@
 
     <p-table [value]="rowData" dataKey="name"  id="body" responsiveLayout="scroll" styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt>
         <ng-template pTemplate="caption"  class="border">
- <div id="btnStyle">
+ <!-- <div id="btnStyle"> -->
                     <!-- {{ID}}
                     {{do_ID}} -->
-                    <app-add-object-attribute   [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
-                    <app-process style=" margin-left: 10px;" [bo_ID]="ID"></app-process>
-                </div>
+                    <app-add-object-attribute style="float: right;"   [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
+                    <app-process style=" margin-left: 63%;" [bo_ID]="ID"></app-process>
+                <!-- </div> -->
         </ng-template>
         <ng-template pTemplate="header">
             

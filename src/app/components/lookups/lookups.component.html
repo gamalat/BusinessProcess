@@ -247,7 +247,8 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
 <!-- update lookup form -->
 <div class="modal fade" id="updateLookup" tabindex="-1" role="dialog" aria-labelledby="updateLookupLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog modal-xl  modal-dialog-scrollable" role="document">
+
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="updateLookupLabel">Update Lookup</h5>
@@ -342,7 +343,8 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
      
     <div class="Card">
     <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="400px"
-      styleClass="p-table-sm override-this" #dt *ngIf="this.LOOKUP_TYPE==='PROCESS'">
+    styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines" 
+    #dt *ngIf="this.LOOKUP_TYPE==='PROCESS'">
       <ng-template pTemplate="caption" class="border">
 
         <div class="p-d-flex">
