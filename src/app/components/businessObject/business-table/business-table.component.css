@@ -38,6 +38,12 @@
   overflow: auto; /* Enable scroll if needed */
   padding: 50px;
 }
+#dt{
+  border-right: 1px solid rgb(245, 238, 238);
+  border-radius: 1px;
+  border-color: darkgray;
+  border-style: double;
+}
 
 
 .popover-title{

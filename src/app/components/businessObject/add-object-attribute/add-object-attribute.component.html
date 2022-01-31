@@ -1,7 +1,7 @@
 
 
 <button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal"
- data-target="#objectAttribute" (click)="g(bo_ID,do_ID)">
+  (click)="onclickAdd()">
   <i class="fa fa-plus"></i> Add Object Attribute
 </button>
 
@@ -22,7 +22,7 @@
         <!-- {{id}} -->
         <!-- #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)"  -->
         <form  #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)">
-          <div class="form-group row"  style="visibility: hidden;height: 0;">
+          <div class="form-group row" style="visibility: hidden;height: 0;">
             <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
             <div class="col-sm-10  input-group-sm">
                 <input type="text" class="form-control"  [(ngModel)]=bo_ID  id="bo_ID" name="bo_ID"  />

@@ -1,6 +1,7 @@
-<p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="body" responsiveLayout="scroll"
+<p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="body" responsiveLayout="scroll" 
 styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt >
   <ng-template pTemplate="caption" class="border">
+ <!-- [scrollable]="true" scrollHeight="500px" -->
 
     <div class="p-d-flex">
       <button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#addLookup">
@@ -11,7 +12,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
   <ng-template pTemplate="header">
     <tr>
 
-      <th pSortableColumn="LOOKUP_NAME">
+      <th pSortableColumn="LOOKUP_NAME" style="max-width: 400px;">
         <div class="p-d-flex p-jc-between p-ai-center">
           Lookup Name
           <p-sortIcon field="LOOKUP_NAME"></p-sortIcon>
@@ -34,7 +35,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
         </div>
       </th>
 
-      <th pSortableColumn="DEPENDANT_NAME">
+      <th pSortableColumn="DEPENDANT_NAME" style="max-width: 400px;">
         <div class="p-d-flex p-jc-between p-ai-center">
           Dependant Name
           <p-sortIcon field="DEPENDANT_NAME"></p-sortIcon>
@@ -42,13 +43,13 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       </th>
 
      
-      <th></th>
-      <th></th>
+      <th style="max-width: 40px;"></th>
+      <th style="max-width: 40px;"></th>
 
     </tr>
     <tr>
 
-      <th>
+      <th style="max-width: 400px;">
         <p-columnFilter type="text" field="LOOKUP_NAME"></p-columnFilter>
       </th>
 
@@ -76,11 +77,11 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
           </ng-template>
       </p-columnFilter>
       </th>
-      <th>
+      <th style="max-width: 400px;"> 
         <p-columnFilter type="text" field="DEPENDANT_NAME"></p-columnFilter>
       </th>
-      <th></th>
-      <th></th>
+      <th style="max-width: 40px;"></th>
+      <th style="max-width: 40px;"></th>
     </tr>
 
   </ng-template>
@@ -89,21 +90,21 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
   <ng-template pTemplate="body" let-lookup>
     <tr (mouseover)="highlightlookup(lookup)" [ngClass]="{'highlight' : lookup.LOOKUP_NAME == selectedName}">
 
-      <td> {{lookup.LOOKUP_NAME}}</td>
+      <td style="max-width: 400px;"> {{lookup.LOOKUP_NAME}}</td>
       <td>{{lookup.LOOKUP_TYPE}}</td>
-      <td id="dependantIcon">
+      <td id="alignCenter">
         <i class="pi"
           [ngClass]="{'true-icon pi-check-circle': lookup.DEPENDANT, 'false-icon pi-times-circle': !lookup.DEPENDANT}"></i>
       </td>
-      <td>{{lookup.DEPENDANT_NAME}}</td>
+      <td style="max-width:400px;">{{lookup.DEPENDANT_NAME}}</td>
 
    
-      <td class="p-text-center">
+      <td id="alignCenter" style="max-width: 40px;">
 
         <i class="fa fa-edit" style="font-size:16px;color:green" (click)="onPressLookup(lookup)"></i>
 
       </td>
-      <td>
+      <td id="alignCenter"style="max-width: 40px;">
         <i class="fa fa-trash-o" popover-class="popover" style="font-size:16px;color:red" 
          (click)="onPressDelete(lookup)">
         </i>
@@ -135,7 +136,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
   <ng-template pTemplate="emptymessage">
     <!-- <span class="emptymessage">Loading Data</span>  -->
     <tr>
-      <td colspan="5">No Date found.</td>
+      <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
     </tr>
   </ng-template>
 
@@ -168,10 +169,10 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
             <div class="col-sm-10  input-group-sm">
               <input type="text" class="form-control" id="LOOKUP_NAME" [(ngModel)]="LOOKUP_NAME" name="LOOKUP_NAME"
                 maxlength="101" required />
-                
-              <!-- <small class="text-danger mt-1"*ngIf="LOOKUP_NAME.length==101">
-              Lookup Name must be less than or equal 100 character
-            </small>  -->
+                <small class="text-danger mt-1"*ngIf="this.LOOKUP_NAME.length==101" >
+                  Lookup Name must be less than 100 character
+                </small>    
+              
             </div>
           </div>
 
@@ -216,7 +217,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
               <textarea type="text" row="3" class="form-control" id="DESCRIPTION" [(ngModel)]="DESCRIPTION"
                 name="DESCRIPTION" maxlength="201"></textarea>
               <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
-        Description must be less than or equal 200 character
+             Description must be less than or equal 200 character
       </small>     -->
             </div>
           </div>
@@ -273,9 +274,9 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
             <div class="col-sm-10  input-group-sm">
               <input type="text" class="form-control" id="LOOKUP_NAME" [(ngModel)]="LOOKUP_NAME" name="LOOKUP_NAME"
                 maxlength="101" required />
-              <!-- <small class="text-danger mt-1"*ngIf="this.LOOKUP_NAME.length==101">
+              <small class="text-danger mt-1"*ngIf="this.LOOKUP_NAME.length==101">
               Lookup Name must be less than or equal 100 character
-            </small>  -->
+            </small> 
             </div>
           </div>
 
@@ -329,7 +330,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
             <div class="col-sm-10  input-group-sm">
 
               <textarea type="text" row="3" class="form-control" id="LOOKUP_SCRIPT" [(ngModel)]="LOOKUP_SCRIPT"
-                name="DESCRIPTION" maxlength="201"></textarea>
+                name="LOOKUP_SCRIPT" maxlength="201"></textarea>
               <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">
         Description must be less than or equal 200 character
       </small>     -->
@@ -342,7 +343,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
 
      
     <div class="Card">
-    <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="400px"
+    <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="wrap-content"
     styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines" 
     #dt *ngIf="this.LOOKUP_TYPE==='PROCESS'">
       <ng-template pTemplate="caption" class="border">
@@ -356,7 +357,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       <ng-template pTemplate="header">
         <tr>
 
-          <th pSortableColumn="OBJECT_CODE" style="min-width: 200px; max-width: 200pt;">
+          <th pSortableColumn="OBJECT_CODE">
             <div class="p-d-flex p-jc-between p-ai-center">
               Object Code
               <p-sortIcon field="OBJECT_CODE"></p-sortIcon>
@@ -379,15 +380,15 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
             </div>
           </th>
 
-          <th></th>
-          <th></th>
+          <th style="max-width: 40px;"></th>
+          <th style="max-width: 40px;"></th>
         </tr>
         <tr>
           <th><p-columnFilter type="text" field="OBJECT_CODE"></p-columnFilter></th>
           <th> <p-columnFilter type="text" field="DISPLAY_NAME"></p-columnFilter></th>
           <th> <p-columnFilter type="text" field="DEP_OBJECT_CODE"></p-columnFilter></th>
-          <th></th>
-          <th></th>
+          <th style="max-width: 40px;"></th>
+          <th style="max-width: 40px;"></th>
         </tr>
 
 
@@ -399,8 +400,9 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
           <td> {{obj.OBJECT_CODE}}</td>
           <td>{{obj.DISPLAY_NAME}}</td>
           <td>{{obj.DEP_OBJECT_CODE}}</td>
-          <td class="p-text-center">
-            <i class="fa fa-edit" style="font-size:16px;color:green" (click)="onUpdateObj(obj)" ></i>
+          <td style="max-width: 40px;">
+            <i  class="fa fa-edit" style="font-size:16px;color:green" (click)="onUpdateObj(obj)" ></i>
+           
           </td>
           <!-- <td>
             <i class="fa fa-trash-o" popover-class="popover" style="font-size:24px;color:red"
@@ -408,7 +410,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
             data-target="#deleteObjModal"> 
             </i>
             <!-- (click)="deleteObj(obj.LOOKUP_OBJECT_ID)" -->
-          <td>
+          <td style="max-width: 40px;">
             <i class="fa fa-trash-o" popover-class="popover" style="font-size:16px;color:red" (click)="onDeleteObj(obj)"
              >
             </i>
@@ -439,7 +441,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       <ng-template pTemplate="emptymessage">
         <!-- <span class="emptymessage">Loading Data</span>  -->
         <tr>
-          <td colspan="5">No Date found.</td>
+          <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
         </tr>
       </ng-template>
     </p-table>
@@ -473,13 +475,13 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       </div>
       <div class="modal-body">
         <form #addObj="ngForm" >
-          <div class="form-group row" style="visibility: hidden;height: 0;"> 
+          <div class="form-group row" style="visibility: hidden;height: 0;">
             <label for="LOOKUP_ID" class="col-sm-2 col-form-label">LOOKUP_ID </label>
             <div class="col-sm-10  input-group-sm">
               <input type="text" class="form-control" id="LOOKUP_ID" [(ngModel)]=this.LOOKUP_ID name="LOOKUP_ID"
                 maxlength="101" required />
                 <input type="text" class="form-control" id="LOOKUP_OBJECT_ID" [(ngModel)]=LOOKUP_OBJECT_ID name="LOOKUP_OBJECT_ID"
-                required />
+                 />
             </div>
             </div>
             
@@ -518,7 +520,6 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
           <div class="form-group row">
             <label for="DESCRIPTION" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10  input-group-sm">
-
               <textarea type="text" row="3" class="form-control" id="DESCRIPTION" [(ngModel)]="DESCRIPTION"
                 name="DESCRIPTION" maxlength="201"></textarea>
               <!-- <small class="text-danger mt-1"*ngIf="this.DESCRIPTION.length==201">

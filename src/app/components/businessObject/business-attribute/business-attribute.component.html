@@ -72,13 +72,13 @@
     
 
    
-
-    <p-table [value]="rowData" dataKey="name"  id="body" responsiveLayout="scroll" styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt>
+    <!-- [scrollable]="true" scrollHeight="300px" -->
+    <p-table [value]="rowData" dataKey="name"  id="body"  styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt >
         <ng-template pTemplate="caption"  class="border">
  <!-- <div id="btnStyle"> -->
                     <!-- {{ID}}
                     {{do_ID}} -->
-                    <app-add-object-attribute style="float: right;"   [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
+                    <app-add-object-attribute style="float: right;" [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
                     <app-process style=" margin-left: 63%;" [bo_ID]="ID"></app-process>
                 <!-- </div> -->
         </ng-template>
@@ -86,7 +86,7 @@
             
             <tr>
                 <!-- <th style="width: 3rem"></th> -->
-                <th pSortableColumn="att_ID">
+                <th pSortableColumn="att_ID" style="max-width: 40px;">
                     <div class="p-d-flex p-jc-between p-ai-center">
 
                         ID
@@ -119,8 +119,8 @@
                         <p-columnFilter type="text" field="att_TYPE" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <th></th>
-                <th></th>
+                <th style=" max-width: 40px;" ></th>
+                <th  style=" max-width: 40px;"></th>
             </tr>
 
         </ng-template>
@@ -134,18 +134,18 @@
                         class="p-button-text p-button-rounded p-button-plain">
                     </button>
                 </td> -->
-                <td>{{MainData.att_ID}}</td>
+                <td style="max-width: 40px;">{{MainData.att_ID}}</td>
                 <td>{{MainData.att_NAME}}</td>
                 <td>{{MainData.att_CODE}}</td>
                 <td>{{MainData.att_TYPE}}</td>
-                <td>
+                <td style="text-align: center; max-width: 40px;">
                     <!-- <i class="fa fa-edit" style="font-size:24px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"
                   ></i> -->
                   <i class="fa fa-edit" style="font-size:16px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"></i>
 <!-- {{MainData.att_ID}} -->
                      
                 </td>
-                <td>
+                <td  style="text-align: center; max-width: 40px;">
                     <i class="fa fa-trash-o"popover-class="popover" style="font-size:16px;color:red" 
                   (click)= "onPressAtt(MainData)" >
                     </i>

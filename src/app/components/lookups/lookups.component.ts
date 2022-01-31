@@ -17,7 +17,7 @@ export class LookupsComponent implements OnInit {
   loading: boolean = true;
   Dchecked:boolean=false;
   dependantChecked:boolean = true;
-  LOOKUP_NAME:any;
+  LOOKUP_NAME:String="";
   LOOKUP_TYPE:any;
   LOOKUP_ID:any;
   DESCRIPTION:any;
@@ -70,9 +70,13 @@ export class LookupsComponent implements OnInit {
       });
     }
 
-    public validateUpdate(addForm: NgForm,Script: any):void{
-      this.lookupService.UpdateScript(addForm.value.Lookup_Id,Script).subscribe(
+    public validateUpdate(addForm: any,Script: any):void{
+      console.log("on validateUpdate functionnnnn")
+      console.log(addForm.value.LOOKUP_ID)
+      console.log(Script)
+      this.lookupService.UpdateScript(addForm.value.LOOKUP_ID,Script).subscribe(
         (response: any) => {
+          console.log(addForm.value.LOOKUP_ID);
           console.log(response.code);
           if(response.code == "2"){
            this.onUpdateLookup(addForm);
@@ -100,11 +104,13 @@ export class LookupsComponent implements OnInit {
         this.onAddLookup(addForm);
       }
     }
+
     public onValidateUpdate(addForm: NgForm): void {
       if(!!addForm.value.LOOKUP_SCRIPT ){ //script not null
         this.validateUpdate(addForm,addForm.value.LOOKUP_SCRIPT);
+        console.log("validate formmmmmmmmmmm")
         console.log(addForm.value.LOOKUP_SCRIPT)
-      }else{
+      }else{ // script is null or type is process
         this.onUpdateLookup(addForm);
       }
     }
@@ -124,7 +130,10 @@ export class LookupsComponent implements OnInit {
       
       this.lookupService.addLookup(addForm.value).subscribe(
         (response: any) => {
+          console.log(response.code);
+
           if(response.code == "1"){
+            
             bootbox.alert({
               title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
               message: "<span style='font-weight: 400; font-size: 16px;'>"+" Lookup Added Successfully"+"</span>  </i>",
@@ -159,7 +168,7 @@ export class LookupsComponent implements OnInit {
           alert(error.message);
         }
       );
-    // }
+  // }
   }
 
     public onAddObject(addObj: NgForm): void {
@@ -385,10 +394,21 @@ public DeleteObj(lookupObjId:number){
 
 }
 public onUpdateLookup(addForm: NgForm): void {
+  // if(this.LOOKUP_NAME.length>100||this.DESCRIPTION.length>200){
+  //   bootbox.alert({
+  //     title: "<span style='font-weight: 600; font-size: 20px;'>"+"Error"+"</span>  </i>",
+  //     message: "<span style='font-weight: 400; font-size: 16px;'>"+"Invaild field length"+"</span>  </i>",
+  //     callback: function(){ 
+    
+  //     }
+  // });
+  // }else
   
+  // {
    console.log(addForm.value);
    this.lookupService.updateLookup(addForm.value).subscribe(
      (response: any) => {
+       console.log("update lookup obj ",response.body)
        if(response.code == "2"){
          bootbox.alert({
            title: "<span style='font-weight: 600; font-size: 20px;'>"+"Success"+"</span>  </i>",
@@ -422,7 +442,7 @@ public onUpdateLookup(addForm: NgForm): void {
        alert(error.message);
      }
    );
- 
+    // }
 }
 
 public onUpdateObjFunc(addForm: NgForm): void {

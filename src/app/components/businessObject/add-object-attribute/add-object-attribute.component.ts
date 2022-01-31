@@ -9,6 +9,7 @@ import { BusinessTableComponent } from '../business-table/business-table.compone
 import { Lookups } from 'src/app/interfaces/Lookups';
 
 declare var bootbox: any;
+declare var $: any;
 
 @Component({
   selector: 'app-add-object-attribute',
@@ -51,7 +52,11 @@ export class AddObjectAttributeComponent implements OnInit  {
   }
 
   getCodec= () =>{
-    if(this.do_ID==undefined){
+    // console.log("from functionnnnn",this.do_ID)
+    // console.log("from functionnnnn",this.bo_ID)
+
+    if(this.do_ID == null || this.do_ID == undefined || this.do_ID == ''){
+      console.log("from functionnnnn",this.bo_ID)
       this.att_CODE=this.att_NAME+this.bo_ID;
       console.log("att_CODE",this.att_CODE);
      
@@ -100,6 +105,13 @@ g(_b:any,_d:any){
     );
   }
 }
+
+public onclickAdd(){
+  this.g(this.bo_ID,this.do_ID);
+console.log("onclickAdd" ,this.bo_ID)
+  $("#objectAttribute").modal('show');
+}
+
 // getcode(Att_NAME:any,bo_ID:any,do_ID:any){
 //   if(do_ID ==undefined){
 //     this.att_CODE=Att_NAME+bo_ID;

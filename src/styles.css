@@ -73,11 +73,20 @@ label{
     background: #f8f9fa !important;
     margin-bottom: 5px
 }
-
+/* ::placeholder{
+    text-align: center;
+} */
+.emptymessage{
+    color: #a33;
+    margin-left: 44%;
+    font-weight: 600;
+ }
 .p-breadcrumb ul li .p-menuitem-text {
     font-size: 12px !important;
 }
-
+span{
+    font-size: 14px;
+}
 .p-toolbar {
     background: #fff;
     border: 1px solid #fff;

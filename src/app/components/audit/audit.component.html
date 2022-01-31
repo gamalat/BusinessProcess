@@ -111,7 +111,8 @@
     </div>
   </form> -->
 
-<p-table [value]="audits"  dataKey="action_ID" id="body" responsiveLayout="scroll" styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
+<p-table [value]="audits"  dataKey="action_ID" id="body" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="450px"
+ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
   #dt>
   <!-- [scrollable]="true" [rows]="100" scrollHeight="900px"
   [virtualScroll]="true" [virtualRowHeight]="100"> -->
@@ -203,7 +204,7 @@
   <ng-template style="width: 100%; display: table-caption; " pTemplate="footer">
 
     <p-button type="button" styleClass="p-button-text"
-      (click)="onReadMore()"  *ngIf="this.searchFlag==false" > Next &raquo;</p-button>
+      (click)="onReadMore()" style="float: right; display: table-caption;" *ngIf="this.searchFlag==false" > Next &raquo;</p-button>
       <p-button type="button" styleClass="p-button-text" style="float: right; display: table-caption;"
       (click)="search(f)" *ngIf="this.searchFlag==true" > Next  &raquo;</p-button>
     <!-- <p-button type="button" styleClass="p-button-text" style="float: left;" (click)="pervious()" *ngIf="this.PageNo>1">
@@ -214,7 +215,7 @@
   <ng-template pTemplate="emptymessage">
     <!-- <span class="emptymessage">Loading Data</span>  -->
     <tr>
-      <td  id="emptymessage"  colspan="5">No Data Found</td>
+      <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
     </tr>
   </ng-template>
 
