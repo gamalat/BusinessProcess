@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import * as FileSaver from 'file-saver';
 import { ObjectAttribute } from 'src/app/interfaces/ObjectAttribute';
 import { BusinessObjectService } from 'src/app/services/business-object.service';
 import { DataObjectService } from 'src/app/services/data-object.service';
@@ -275,6 +276,8 @@ setNewType(id: any): void {
           }
         });
     }
+
+  
   }
 
 
@@ -312,6 +315,23 @@ setNewType(id: any): void {
    this.do_TYPE="";
 
   }
+
+  exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.rowData);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, " Object Arribute");
+    });
+}
+saveAsExcelFile(buffer: any, fileName: string): void {
+  let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  let EXCEL_EXTENSION = '.xlsx';
+  const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+  });
+  FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+}
 }
 function Obj_id(Obj_id: any) {
   throw new Error('Function not implemented.');

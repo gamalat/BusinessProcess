@@ -14,10 +14,10 @@ export class ProcessroletreeComponent implements OnInit {
   @ViewChild('myDetails') myDetails!: ProcessroledetailsComponent;
   @ViewChild('myParentID') myParentID!: AddprocessroleComponent;
  //breadcrumb
-  items = [
-    {label: 'Process Roles' , routerLink: '/processrole'}
-   ];
-  home = {icon: 'pi pi-home', routerLink: '/processrole'};
+  // items = [
+  //   {label: 'Process Roles' , routerLink: '/processrole'}
+  //  ];
+  // home = {icon: 'pi pi-home', routerLink: '/processrole'};
 
   ROLEIDSession:boolean = false;
   constructor(private nodeService: TestService , private processRole : ProcessroleService) {}

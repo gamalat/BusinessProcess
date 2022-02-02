@@ -69,6 +69,10 @@
     display: block;
     padding: 20px 0px;
   }
+  .nav-item a:active{
+    color: white;
+    background-color: red;
+}
   /* .sidebar a:hover , .sidebar a:focus{
   background: rgb(177 170 170 / 50%);
   } */

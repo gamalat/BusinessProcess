@@ -56,4 +56,9 @@
   border: 1px solid rgb(0, 0, 0);
   width: 100%; 
 }
-
+/* #pr_id_4-table{
+  width: 100%;
+} */
+.ng-star-inserted{
+  width: 100%;
+}

@@ -42,9 +42,8 @@ export class AddBusinessObjectComponent implements OnInit {
         
         }
     });
-    }else{
-
-   
+    }
+    else{
     console.log(addForm.value);
     this.boService.addBusinessObject(addForm.value).subscribe(
       (response: any) => {

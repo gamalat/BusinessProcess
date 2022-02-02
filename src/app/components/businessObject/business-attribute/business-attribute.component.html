@@ -73,20 +73,31 @@
 
    
     <!-- [scrollable]="true" scrollHeight="300px" -->
-    <p-table [value]="rowData" dataKey="name"  id="body"  styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt >
+    <p-table [value]="rowData" dataKey="name"  id="body"  styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" responsiveLayout="scroll" [scrollable]="true" scrollHeight="300px" #dt >
         <ng-template pTemplate="caption"  class="border">
  <!-- <div id="btnStyle"> -->
                     <!-- {{ID}}
                     {{do_ID}} -->
-                    <app-add-object-attribute style="float: right;" [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
-                    <app-process style=" margin-left: 63%;" [bo_ID]="ID"></app-process>
+                    <div>
+                    <app-add-object-attribute [bo_ID]="ID" [do_ID]="do_ID" ></app-add-object-attribute>
+                    <app-process style="margin-left: 10px;" [bo_ID]="ID"></app-process>
+                   
                 <!-- </div> -->
-        </ng-template>
+             
+     
+        <div id="btnStyle">
+            <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" >
+                <i class="fa fa-download" aria-hidden="true" ></i>
+                Export 
+              </button>
+    </div>
+    </div>
+    </ng-template>
         <ng-template pTemplate="header">
             
             <tr>
                 <!-- <th style="width: 3rem"></th> -->
-                <th pSortableColumn="att_ID" style="max-width: 40px;">
+                <th pSortableColumn="att_ID" style="max-width: 15%;">
                     <div class="p-d-flex p-jc-between p-ai-center">
 
                         ID
@@ -97,14 +108,14 @@
 
 
 
-                <th pSortableColumn="att_NAME">
+                <th pSortableColumn="att_NAME" style="max-width: 25% ">
                     <div class="p-d-flex p-jc-between p-ai-center">
                         Name <p-sortIcon field="att_NAME"></p-sortIcon>
                         <p-columnFilter type="text" field="att_NAME" display="menu"></p-columnFilter>
                     </div>
                 </th>
 
-                <th pSortableColumn="att_CODE">
+                <th pSortableColumn="att_CODE" style="max-width: 30% ">
                     <div class="p-d-flex p-jc-between p-ai-center">
                         Code
                         <p-sortIcon field="att_CODE"></p-sortIcon>
@@ -112,15 +123,15 @@
                     </div>
                 </th>
 
-                <th pSortableColumn="att_TYPE">
+                <th pSortableColumn="att_TYPE" style="max-width: 20%" >
                     <div class="p-d-flex p-jc-between p-ai-center">
                         Type
                         <p-sortIcon field="att_TYPE"></p-sortIcon>
                         <p-columnFilter type="text" field="att_TYPE" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <th style=" max-width: 40px;" ></th>
-                <th  style=" max-width: 40px;"></th>
+                <th style=" max-width: 5%;" ></th>
+                <th  style=" max-width: 5%;"></th>
             </tr>
 
         </ng-template>
@@ -134,18 +145,18 @@
                         class="p-button-text p-button-rounded p-button-plain">
                     </button>
                 </td> -->
-                <td style="max-width: 40px;">{{MainData.att_ID}}</td>
-                <td>{{MainData.att_NAME}}</td>
-                <td>{{MainData.att_CODE}}</td>
-                <td>{{MainData.att_TYPE}}</td>
-                <td style="text-align: center; max-width: 40px;">
+                <td style="max-width: 15%" >{{MainData.att_ID}}</td>
+                <td style="max-width: 25%">{{MainData.att_NAME}}</td>
+                <td style="max-width: 30%">{{MainData.att_CODE}}</td>
+                <td style="max-width: 20%">{{MainData.att_TYPE}}</td>
+                <td style="text-align: center; max-width: 5%;">
                     <!-- <i class="fa fa-edit" style="font-size:24px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"
                   ></i> -->
                   <i class="fa fa-edit" style="font-size:16px;color:green" data-toggle="modal" (click)="onPress(MainData.att_ID)"></i>
 <!-- {{MainData.att_ID}} -->
                      
                 </td>
-                <td  style="text-align: center; max-width: 40px;">
+                <td  style="text-align: center; max-width:  5%;">
                     <i class="fa fa-trash-o"popover-class="popover" style="font-size:16px;color:red" 
                   (click)= "onPressAtt(MainData)" >
                     </i>

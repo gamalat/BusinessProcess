@@ -13,8 +13,20 @@ data-target="#process" (click)="getAllProcess()" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-<p-table [value]="processes" dataKey="process_ID"  id="body" responsiveLayout="scroll"
+<p-table [value]="processes" dataKey="process_ID"  id="body" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="400px"
   styleClass="p-table-sm override-this" #dt >
+
+  <ng-template pTemplate="caption" class="border">
+
+    <div style="text-align: end; margin-right: 10px;" >
+  
+    <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS"  >
+      <i class="fa fa-download" aria-hidden="true" ></i>
+      Export 
+    </button>
+  </div>
+
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
 
@@ -102,7 +114,7 @@ data-target="#process" (click)="getAllProcess()" >
   <ng-template pTemplate="emptymessage">
     <!-- <span class="emptymessage">Loading Data</span>  -->
     <tr>
-      <td colspan="5">No Date found.</td>
+      <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
     </tr>
   </ng-template>
 

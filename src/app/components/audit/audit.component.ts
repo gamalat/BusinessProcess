@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as FileSaver from 'file-saver';
 import { AuditService } from 'src/app/services/audit.service';
 
 @Component({
@@ -14,12 +16,15 @@ export class AuditComponent implements OnInit {
   action:any;
   action_ID:any;
   action_BY:any;
-  action_DATE:any;
+  faction_DATE:any;
+  saction_DATE:any;
   notes:any;
   errorMsg:string="No Date found.";
   SPageNo:any=1;
   Size :number=100;
   searchFlag:boolean=false;
+  fDATE: any;
+  sDATE: any;
   constructor(private auditService:AuditService ) { }
 
   ngOnInit(): void {
@@ -40,13 +45,43 @@ export class AuditComponent implements OnInit {
       }
     );
   }
+
+  
   public search(f:NgForm){
     this.searchFlag=true;
-    this.auditService.AuditٍSearch(this.SPageNo,this.Size,f.value).subscribe(
+  
+    if(f.value.faction_DATE==null || f.value.faction_DATE==undefined ||f.value.faction_DATE==''){
+      this.fDATE=null
+    } else{
+      this.fDATE = formatDate( f.value.faction_DATE, 'MM/dd/yyyy', 'en')
+
+    }
+    if(f.value.saction_DATE==null || f.value.saction_DATE==undefined ||f.value.saction_DATE==''){
+      this.sDATE=null
+    }else{
+      this.sDATE = formatDate( f.value.saction_DATE, 'MM/dd/yyyy', 'en')
+
+    }
+    var obj={
+      "action": f.value.action,
+      "action_BY": f.value.action_BY,
+      "notes": f.value.notes,
+      "faction_DATE": this.fDATE,
+      "saction_DATE": this.sDATE
+  
+  };
+  
+  console.log("search object",obj)
+  
+
+    this.auditService.AuditٍSearch(this.SPageNo,this.Size,obj).subscribe(
       (response: any) => {      
         console.log("audit search")
         console.log(response.body)
+
         console.log(f.value.action_ID);
+        console.log(this.sDATE);
+        console.log(this.fDATE);
         this.audits = response.body;
         console.log(this.audits);
         this.SPageNo=this.SPageNo+1;
@@ -74,10 +109,28 @@ export class AuditComponent implements OnInit {
     this.action="";
     this.action_BY="";
     console.log("audit oooo")
-    this.action_DATE="";
+    this.faction_DATE="";
+    this.saction_DATE="";
     this.notes="";
     this.getAllAudit(1,100);
+    console.log(this.PageNo)
   }
+  exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.audits);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "Audits");
+    });
+}
+saveAsExcelFile(buffer: any, fileName: string): void {
+  let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  let EXCEL_EXTENSION = '.xlsx';
+  const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+  });
+  FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+}
 }
 
 

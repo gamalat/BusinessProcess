@@ -1,15 +1,19 @@
 <div class="row col-12" style="margin: 0 -27px; " >
     <div class="col-12" style="padding-top:10px; " >
         <app-add-business-object></app-add-business-object>
+        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" style="margin-left: 10px;" >
+          <i class="fa fa-download" aria-hidden="true" ></i>
+          Export 
+        </button>
     </div>
     <div class="col-4" >
 
-        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" #dt  
+        <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" [scrollable]="true" scrollHeight="520px" #dt  
             (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true"  >
     
             <ng-template pTemplate="header" >
                 <tr [pSelectableRow]="MainData">
-                    <th style="width:0.3rem"></th>
+                    <th  style="max-width:10% "></th>
                     <!-- <th pSortableColumn="bo_ID" >
                         <div class="p-d-flex p-jc-between p-ai-center">
                             ID
@@ -17,15 +21,15 @@
                             <p-columnFilter type="text" field="bo_ID" display="menu"></p-columnFilter>
                         </div>
                     </th> -->
-                    <th pSortableColumn="bo_NAME" style="max-width: 200px;">
+                    <th pSortableColumn="bo_NAME" style="max-width: 70% ">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Bo Name
                             <p-sortIcon field="bo_NAME"></p-sortIcon>
                             <p-columnFilter type="text" field="bo_NAME" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th  style="max-width: 30px;"></th>
-                    <th style="max-width: 30px;" ></th>
+                    <th  style="max-width: 10% "></th>
+                    <th  style="max-width: 10% " ></th>
                 </tr>
             </ng-template>
 
@@ -33,21 +37,21 @@
             <ng-template pTemplate="body" let-MainData let-expanded="expanded">
                 <tr (click)="onRowBo(MainData)"  style="height:40px"
                     [ngClass]="{'highlight' : MainData.bo_NAME == selectedName}" >
-                    <td>
+                    <td style="max-width: 10% "> 
                     <button type="button" pButton pRipple [pRowToggler]="MainData"
                      class="p-button-text p-button-rounded p-button-plain"
                       [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
                     
                     <!-- <td>{{MainData.bo_ID}}</td> -->
-                    <td style="max-width: 150px;">
+                    <td style="max-width: 70% ">
                       {{MainData.bo_NAME}}</td>
-                    <td>
+                    <td style="max-width: 10% "> 
                         <!-- <app-add-data-obj [bo]="MainData"  ></app-add-data-obj></td> -->
                         <i data-toggle="modal"  class="fa fa-plus"  (click)="onPressAdd(MainData)"
                         style="font-size:16px;color:rgb(17, 92, 14)" ></i> </td>
 
-                    <td>
+                    <td style="max-width: 10% ">
                         <i class="fa fa-trash-o"popover-class="popover" style="font-size:16px;color:red"
                         data-toggle="modal"  (click)="onPressBo(MainData)"></i>
                 </td>
@@ -88,7 +92,7 @@
                             <p-table [value]="MainData.dos" dataKey="do_ID" styleClass="p-table-sm">
                                 <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 3rem"></th>
+                    <th style="max-width:10% "></th>
                     <!-- <th pSortableColumn="do_ID">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Do ID
@@ -98,23 +102,23 @@
                     </th> -->
 
 
-                    <th pSortableColumn="name">
+                    <th pSortableColumn="name" style="max-width:80% ">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Do Name
                             <p-sortIcon field="name"></p-sortIcon>
                             <p-columnFilter type="text" field="bo_ID" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th></th>
+                    <th style="max-width:10% "></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-DetailsData>
                 <tr (click)="onRowDo(DetailsData)" 
                     [ngClass]="{'highlight' : DetailsData.do_NAME == DselectedName}">
-                    <td></td>
+                    <td style="max-width:10% "></td>
                     <!-- <td >{{DetailsData.do_ID}}</td> -->
-                    <td>{{DetailsData.do_NAME}}</td>
-                    <td>
+                    <td style="max-width:80% ">{{DetailsData.do_NAME}}</td>
+                    <td style="max-width:10% ">
                         <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red"
                             (click)="onDeleteDo(DetailsData.do_ID)"></i></td> -->
                             <i class="fa fa-trash-o"popover-class="popover" 

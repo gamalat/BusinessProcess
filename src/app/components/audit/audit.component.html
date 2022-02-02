@@ -24,20 +24,28 @@
   <form #f="ngForm"(ngSubmit)="search(f)" id="searchForm">
     <div class="form-row"> 
      
-      <div class="form-group col-md-3">
-        <label for="action">Action</label>
+      <div class="form-group col-md-2">
+        <label for="action">Action Name</label>
         <input type="text" [(ngModel)]="action" name="action"  class="form-control" id="action" placeholder="Action">
       </div>
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-2">
         <label for="action_BY">Action By</label>
         <input type="text" class="form-control" id="action_BY" placeholder="Action By"  name="action_BY" [(ngModel)]="action_BY">
       </div>
-      <div class="form-group col-md-3">
-        <label for="action_DATE">Action Date</label>
-        <input type="datetime-local" class="form-control" 
-         id="action_DATE" placeholder="Action Date" name="action_DATE" [(ngModel)]="action_DATE">
+      <div class="form-group col-md-2">
+        <label for="faction_DATE">From Date </label>
+        <input type="date" class="form-control" 
+         id="faction_DATE" placeholder="Action Date" name="faction_DATE" [(ngModel)]="faction_DATE">
       </div>
-      <div class="form-group col-md-3">
+      <div class="form-group col-md-2">
+        <label for="saction_DATE">To Date </label>
+        <input type="date" class="form-control"
+         id="saction_DATE" placeholder="Action Date" name="saction_DATE" [(ngModel)]="saction_DATE">
+      </div>
+      <!-- placeholder="mm/dd/yyyy" 
+      min="01/01/1997" max="01/01/2100" -->
+      <!-- datetime-local -->
+      <div class="form-group col-md-4">
         <label for="notes">Notes</label>
         <input type="text" class="form-control" [(ngModel)]="notes" id="notes" name="notes" placeholder="Notes">
       </div>
@@ -46,10 +54,16 @@
         <button type="submit" id="submitBtn" class="btn btn-success btn-sm mb-1" [disabled]=f.form.invalid  >
         <i class="fa fa-search" aria-hidden="true"></i>
         Search </button>
-        <button type="button" id="resetBtn" class="btn btn-primary btn-sm mb-1"  (click)="reset()">Reset 
+        <button type="button" id="resetBtn" class="btn btn-primary btn-sm mb-1"  (click)="reset()" style="margin-right: 10px;">
           <i class="fa fa-refresh" aria-hidden="true"></i>
+          Reset 
           </button>
-        </div> 
+          <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" >
+            <i class="fa fa-download" aria-hidden="true" ></i>
+            Export 
+          </button>
+        <!-- </div>  -->
+        </div>
     </form>
   <!-- <form #f="ngForm"(ngSubmit)="search(f)">
     <br>
@@ -123,35 +137,41 @@
   <ng-template pTemplate="header">
     <tr>
 
-      <th pSortableColumn="action_ID">
+      <!-- <th pSortableColumn="action_ID" style="max-width: 10%;">
         <div class="p-d-flex p-jc-between p-ai-center">
           Action ID
           <p-sortIcon field="action_ID"></p-sortIcon>
         </div>
-      </th>
+      </th> -->
 
 
-
-      <th pSortableColumn="action">
+      <th pSortableColumn="action" style="max-width: 35%;">
         <div class="p-d-flex p-jc-between p-ai-center">
-          Action
+          Action Name
           <p-sortIcon field="action"></p-sortIcon>
         </div>
       </th>
 
-      <th pSortableColumn="action_BY">
+      <th pSortableColumn="action_BY"  style="max-width: 10%;">
         <div class="p-d-flex p-jc-between p-ai-center">
           Action By
           <p-sortIcon field="action_BY"></p-sortIcon>
         </div>
       </th>
 
-      <th pSortableColumn="action_DATE">
+      <th pSortableColumn="action_DATE" style="max-width: 20%;">
         <div class="p-d-flex p-jc-between p-ai-center">
           Action Date
           <p-sortIcon field="action_DATE"></p-sortIcon>
         </div>
       </th>
+      <th pSortableColumn="notes" style="max-width: 35%;">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Notes
+          <p-sortIcon field="notes"></p-sortIcon>
+        </div>
+      </th>
+      
     </tr>
   </ng-template>
   <!-- <ng-template pTemplate="header">
@@ -191,13 +211,16 @@
   <ng-template pTemplate="body" let-audit>
     <tr>
       <!-- (mouseover)="highlightlookup(processes)" [ngClass]="{'highlight' : processes.process_NAME == selectedName}" -->
-      <td> {{audit.action_ID}}</td>
-      <td>{{audit.action}}</td>
+      <!-- <td style="max-width: 10%;"> {{audit.action_ID}}</td> -->
 
-      <td>{{audit.action_BY}}</td>
+      <td style="max-width:35%;">{{audit.action}}</td>
 
-      <td>{{audit.action_DATE}}</td>
+      <td  style="max-width: 10%;">{{audit.action_BY}}</td>
 
+      <td style="max-width:20%;">{{audit.action_DATE}}</td>
+      <td style="max-width: 35%;"> {{audit.notes}}</td>
+
+      
     </tr>
 
   </ng-template>
