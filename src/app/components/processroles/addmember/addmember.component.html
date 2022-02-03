@@ -27,9 +27,17 @@
                 </span>
             </div>
           </ng-template> -->
+          <ng-template pTemplate="caption" class="border">
 
+            <div style="text-align: end; margin-right: 10px;" >
+          
+            <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS"  >
+              <i class="fa fa-download" aria-hidden="true" ></i>
+              Export 
+            </button>
+          </div>
  
-
+</ng-template>
           <ng-template pTemplate="header">
 
             <tr>
