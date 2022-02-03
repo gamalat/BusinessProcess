@@ -21,7 +21,7 @@
                             <p-columnFilter type="text" field="bo_ID" display="menu"></p-columnFilter>
                         </div>
                     </th> -->
-                    <th pSortableColumn="bo_NAME" style="max-width: 70% ">
+                    <th pSortableColumn="bo_NAME" style="max-width: 50% ">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Bo Name
                             <p-sortIcon field="bo_NAME"></p-sortIcon>
@@ -44,7 +44,7 @@
                     </td>
                     
                     <!-- <td>{{MainData.bo_ID}}</td> -->
-                    <td style="max-width: 70% ">
+                    <td style="max-width: 50% ">
                       {{MainData.bo_NAME}}</td>
                     <td style="max-width: 10% "> 
                         <!-- <app-add-data-obj [bo]="MainData"  ></app-add-data-obj></td> -->
@@ -88,8 +88,8 @@
             <ng-template pTemplate="rowexpansion" let-MainData>
                 <tr>
                     <td colspan="7">
-                        <div class="p-p-3">
-                            <p-table [value]="MainData.dos" dataKey="do_ID" styleClass="p-table-sm">
+                        <!-- <div class="p-p-3">  -->
+                            <p-table [value]="MainData.dos" dataKey="do_ID" styleClass="p-table-sm" id="doTable">
                                 <ng-template pTemplate="header">
                 <tr>
                     <th style="max-width:10% "></th>
@@ -102,7 +102,7 @@
                     </th> -->
 
 
-                    <th pSortableColumn="name" style="max-width:80% ">
+                    <th pSortableColumn="name" style="max-width:60% ">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Do Name
                             <p-sortIcon field="name"></p-sortIcon>
@@ -117,7 +117,7 @@
                     [ngClass]="{'highlight' : DetailsData.do_NAME == DselectedName}">
                     <td style="max-width:10% "></td>
                     <!-- <td >{{DetailsData.do_ID}}</td> -->
-                    <td style="max-width:80% ">{{DetailsData.do_NAME}}</td>
+                    <td style="max-width:60% ">{{DetailsData.do_NAME}}</td>
                     <td style="max-width:10% ">
                         <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red"
                             (click)="onDeleteDo(DetailsData.do_ID)"></i></td> -->
@@ -151,8 +151,8 @@
                 </tr>
             </ng-template>
         </p-table>
-    </div>
-    </td>
+    <!-- </div> -->
+    </td> 
     </tr>
     </ng-template>
     </p-table>
