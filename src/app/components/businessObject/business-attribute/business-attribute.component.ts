@@ -318,9 +318,13 @@ setNewType(id: any): void {
 
   exportExcel() {
     import("xlsx").then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.rowData);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      let element = document.getElementById('attTable');
+      console.log(element)
+      var ws = xlsx.utils.table_to_sheet(element);
+      var wb = xlsx.utils.book_new();
+      xlsx.utils.book_append_sheet(wb, ws, "");
+            const excelBuffer: any = xlsx.write(wb, { bookType: 'xlsx', type: 'array' });
+  
         this.saveAsExcelFile(excelBuffer, " Object Arribute");
     });
 }
@@ -333,7 +337,5 @@ saveAsExcelFile(buffer: any, fileName: string): void {
   FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
 }
 }
-function Obj_id(Obj_id: any) {
-  throw new Error('Function not implemented.');
-}
+
 

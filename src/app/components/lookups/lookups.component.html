@@ -1,5 +1,5 @@
-<p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="500px"
-styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers" #dt >
+<p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="lookupTable" responsiveLayout="scroll" [scrollable]="true" scrollHeight="500px"
+styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"  >
   <ng-template pTemplate="caption" class="border">
  <!-- [scrollable]="true" scrollHeight="500px" -->
 
@@ -101,7 +101,8 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       <td id="alignCenter" style="max-width: 15%;">
         <i class="pi"
           [ngClass]="{'true-icon pi-check-circle': lookup.DEPENDANT, 'false-icon pi-times-circle': !lookup.DEPENDANT}"></i>
-      </td>
+        <p style="visibility: hidden;height: 0;">{{lookup.DEPENDANT}}</p>
+        </td>
       <td style="max-width:30%;">{{lookup.DEPENDANT_NAME}}</td>
 
    
@@ -349,9 +350,9 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
 
      
     <div class="Card">
-    <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="body" responsiveLayout="scroll" [scrollable]="true" scrollHeight="wrap-content"
+    <p-table [value]="objs" dataKey="LOOKUP_OBJECT_ID" id="objTable" responsiveLayout="scroll" [scrollable]="true" scrollHeight="wrap-content"
     styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines" 
-    #dt *ngIf="this.LOOKUP_TYPE==='PROCESS'">
+     *ngIf="this.LOOKUP_TYPE==='PROCESS'">
       <ng-template pTemplate="caption" class="border">
 
         <div class="p-d-flex">

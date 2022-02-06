@@ -1,131 +1,128 @@
-<button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" 
-data-target="#process" (click)="getAllProcess()" >
-   Process
+<button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#process"
+  (click)="getAllProcess()">
+  Process
 </button>
 
-<div class="modal fade" id="process" tabindex="-1" role="dialog" aria-labelledby="processLabel"
-  aria-hidden="true">
+<div class="modal fade" id="process" tabindex="-1" role="dialog" aria-labelledby="processLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="processLabel">Processes</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-<p-table [value]="processes" dataKey="process_ID"  id="body" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="400px"
-  styleClass="p-table-sm override-this" #dt >
+      <p-table [value]="processes" dataKey="process_ID" id="processTable" responsiveLayout="scroll" [scrollable]="true"
+        scrollHeight="400px" styleClass="p-table-sm override-this" #dt>
 
-  <ng-template pTemplate="caption" class="border">
+        <ng-template pTemplate="caption" class="border">
 
-    <div style="text-align: end; margin-right: 10px;" >
-  
-    <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS"  >
-      <i class="fa fa-download" aria-hidden="true" ></i>
-      Export 
-    </button>
+          <div style="text-align: end; margin-right: 10px;">
+
+            <button type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS">
+              <i class="fa fa-download" aria-hidden="true"></i>
+              Export
+            </button>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+
+            <th pSortableColumn="process_ID">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                Process ID
+                <p-sortIcon field="process_ID"></p-sortIcon>
+              </div>
+            </th>
+
+
+
+            <th pSortableColumn="process_NAME">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                Process Name
+                <p-sortIcon field="process_NAME"></p-sortIcon>
+              </div>
+            </th>
+
+            <th pSortableColumn="group_ID">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                Group ID
+                <p-sortIcon field="group_ID"></p-sortIcon>
+              </div>
+            </th>
+
+            <th pSortableColumn="bo_ID">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                Bo ID
+                <p-sortIcon field="bo_ID"></p-sortIcon>
+              </div>
+            </th>
+
+            <th pSortableColumn="description">
+              <div class="p-d-flex p-jc-between p-ai-center">
+                Description
+                <p-sortIcon field="description"></p-sortIcon>
+              </div>
+            </th>
+
+
+          </tr>
+          <tr>
+
+            <th>
+              <p-columnFilter type="text" field="process_ID"></p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter type="text" field="process_NAME"></p-columnFilter>
+
+            </th>
+            <th>
+
+              <p-columnFilter type="text" field="group_ID"></p-columnFilter>
+
+            </th>
+            <th>
+              <p-columnFilter type="text" field="bo_ID"></p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter type="text" field="description"></p-columnFilter>
+            </th>
+          </tr>
+
+        </ng-template>
+
+
+        <ng-template pTemplate="body" let-process>
+          <tr>
+            <!-- (mouseover)="highlightlookup(processes)" [ngClass]="{'highlight' : processes.process_NAME == selectedName}" -->
+            <td> {{process.process_ID}}</td>
+            <td>{{process.process_NAME}}</td>
+
+            <td>{{process.group_ID}}</td>
+
+            <td>{{process.bo_ID}}</td>
+            <td>{{process.description}}</td>
+
+          </tr>
+
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <!-- <span class="emptymessage">Loading Data</span>  -->
+          <tr>
+            <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
+          </tr>
+        </ng-template>
+
+
+      </p-table>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+      </div>
+    </div>
   </div>
-
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-
-      <th pSortableColumn="process_ID">
-        <div class="p-d-flex p-jc-between p-ai-center">
-          Process ID
-          <p-sortIcon field="process_ID"></p-sortIcon>
-        </div>
-      </th>
-
-
-
-      <th pSortableColumn="process_NAME">
-        <div class="p-d-flex p-jc-between p-ai-center">
-         Process Name
-          <p-sortIcon field="process_NAME"></p-sortIcon>
-        </div>
-      </th>
-
-      <th pSortableColumn="group_ID">
-        <div class="p-d-flex p-jc-between p-ai-center">
-         Group ID
-          <p-sortIcon field="group_ID"></p-sortIcon>
-        </div>
-      </th>
-
-      <th pSortableColumn="bo_ID">
-        <div class="p-d-flex p-jc-between p-ai-center">
-          Bo ID
-          <p-sortIcon field="bo_ID"></p-sortIcon>
-        </div>
-      </th>
-
-      <th pSortableColumn="description">
-         <div class="p-d-flex p-jc-between p-ai-center">
-            Description
-           <p-sortIcon field="description"></p-sortIcon>
-         </div>
-       </th>
-   
-
-    </tr>
-    <tr>
-
-      <th>
-        <p-columnFilter type="text" field="process_ID"></p-columnFilter>
-      </th>
-
-      <th>
-         <p-columnFilter type="text" field="process_NAME"></p-columnFilter>
-
-      </th>
-      <th>
-         
-         <p-columnFilter type="text" field="group_ID"></p-columnFilter>
-
-      </th>
-      <th>
-        <p-columnFilter type="text" field="bo_ID"></p-columnFilter>
-      </th>
-      
-      <th>
-         <p-columnFilter type="text" field="description"></p-columnFilter>
-       </th>
-    </tr>
-
-  </ng-template>
-
-
-  <ng-template pTemplate="body" let-process>
-    <tr >
-      <!-- (mouseover)="highlightlookup(processes)" [ngClass]="{'highlight' : processes.process_NAME == selectedName}" -->
-      <td> {{process.process_ID}}</td>
-      <td>{{process.process_NAME}}</td>
-      
-         <td>{{process.group_ID}}</td>
-      
-      <td>{{process.bo_ID}}</td>
-      <td>{{process.description}}</td>
-
-    </tr>
-    
-  </ng-template>
-
-  <ng-template pTemplate="emptymessage">
-    <!-- <span class="emptymessage">Loading Data</span>  -->
-    <tr>
-      <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
-    </tr>
-  </ng-template>
-
-
-</p-table>
-<div class="modal-footer">
-  <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
-
 </div>
-</div>
-</div>
-</div>
-
-  

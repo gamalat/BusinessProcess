@@ -636,16 +636,25 @@ this.DESCRIPTION=MainData.DESCRIPTION;
 
   exportExcel() {
     import("xlsx").then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.lookups);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "lookups");
+
+      let element = document.getElementById('lookupTable');
+console.log(element)
+var ws = XLSX.utils.table_to_sheet(element);
+var wb = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(wb, ws, "");
+      const excelBuffer: any = xlsx.write(wb, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "Lookup");
+
+console.log(element)
+     
     });
 }
 
 exportExcelObj() {
   import("xlsx").then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.objs);
+          let element = document.getElementById('objTable');
+console.log(element)
+        const worksheet = xlsx.utils.table_to_sheet(element);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, "lookups Obj");

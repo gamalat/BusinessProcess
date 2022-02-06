@@ -11,6 +11,10 @@ p-table tr.highlight {
   /* text-align: end; */
   float: right;
 }
+/* #btns{
+  border: 1px;
+  background-color: rgb(240, 240, 232);
+} */
  .emptymessage{
     color: #a33;
     margin-left: 44%;

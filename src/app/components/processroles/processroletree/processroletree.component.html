@@ -3,10 +3,14 @@
 <div class="row col-12" style="margin: 0 -50px;">
     <div class="col-12" style="margin-top: 7px;">
         <app-addprocessrole [RoleRow]="ROLEROW" #myParentID ></app-addprocessrole>
+        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" style="margin-left: 10px;" >
+                              <i class="fa fa-download" aria-hidden="true" ></i>
+                              Export 
+        </button>
     </div>
 
     <div class="col-4">
-       <p-tree [value]="treeall" [filter]="true" [filterPlaceholder]="'Filter By Role Name...'"   selectionMode="single" (onNodeSelect)="nodeSelect($event)" ></p-tree> 
+       <p-tree [value]="treeall"  id="treeall" [filter]="true" [filterPlaceholder]="'Filter By Role Name...'"   selectionMode="single" (onNodeSelect)="nodeSelect($event)" ></p-tree> 
     </div>
     
     <div class="col-8" *ngIf="ROLEIDSession == true" >

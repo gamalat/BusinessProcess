@@ -33,12 +33,16 @@ export class ProcessComponent  {
   // }
   exportExcel() {
     import("xlsx").then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.processes);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      let element = document.getElementById('processTable');
+      console.log(element)
+      var ws = xlsx.utils.table_to_sheet(element);
+      var wb = xlsx.utils.book_new();
+      xlsx.utils.book_append_sheet(wb, ws, "");
+            const excelBuffer: any = xlsx.write(wb, { bookType: 'xlsx', type: 'array' });
         this.saveAsExcelFile(excelBuffer, "processes");
     });
   }
+  
   saveAsExcelFile(buffer: any, fileName: string): void {
   let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   let EXCEL_EXTENSION = '.xlsx';
