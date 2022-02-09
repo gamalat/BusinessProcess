@@ -1,9 +1,10 @@
 <!-- <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb> -->
 
-<div class="row col-12" style="margin: 0 -50px;">
-    <div class="col-12" style="margin-top: 7px;">
+<div class="row ">
+
+    <div class="col-12" >
         <app-addprocessrole [RoleRow]="ROLEROW" #myParentID ></app-addprocessrole>
-        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" style="margin-left: 10px;" >
+        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" title="XLS" style="margin-left: 10px;" >
                               <i class="fa fa-download" aria-hidden="true" ></i>
                               Export 
         </button>

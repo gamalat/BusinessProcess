@@ -1,9 +1,11 @@
+
 <div id="loginPage">
     <form #f="ngForm" (ngSubmit)="login(f.value)">
 
         <div class="p-fluid p-grid">
             <div class="card">
                 <div class="p-fluid p-grid">
+                    <br>
                     <div class="p-field p-col-12 p-md-4">
                         <img src="assets/images/MTSLogo.png" id="logo">
                     </div>
@@ -28,8 +30,10 @@
                         <!-- [toggleMask]="true" -->
                     </div>
 
+
+                    <br>
                     
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-4"  style="margin-top: -13px;">
                         <button pButton type="submit" class="myform-btn" [disabled]=f.form.invalid>
                            <span class="titlelogin"> LOGIN</span>
                         </button>
@@ -37,7 +41,7 @@
                     <div class="p-col-12">
                         <p class="text-danger mt-3 text-center">{{showErrorMessage}}</p>
                     </div>
-
+                    <br> <br>
                     <!-- <div class="p-field p-col-12 p-md-4"></div> -->
                        
                     
@@ -47,3 +51,6 @@
     </form>
 
 </div>
+
+
+

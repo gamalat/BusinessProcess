@@ -7,17 +7,18 @@ aria-hidden="true">
 <div  class="modal-dialog modal-xl" role="document">
  <div class="modal-content">
    <div class="modal-header">
-     <h5 class="modal-title" id="objectAttributeLabel">Update Object Attribute</h5>
+     <h6 class="modal-title" id="objectAttributeLabel">Update Object Attribute</h6>
      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset()">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
+   <form  #addForm="ngForm" (ngSubmit)="onUpdateAttObj(addForm)" >
+
    <div class="modal-body">
 
      <!-- {{All | json}} -->
      <!-- {{id}} -->
      <!-- #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)"  -->
-     <form  #addForm="ngForm" (ngSubmit)="onUpdateAttObj(addForm)" >
        <div class="form-group row" style="visibility: hidden;height: 0;" >
          <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
          <div class="col-sm-10  input-group-sm">
@@ -107,16 +108,19 @@ aria-hidden="true">
          </div>
        </div>
 
-       <div class="modal-footer">
-         <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Update Business Attribute</button>
-         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reset()">Cancel</button>
-
-       </div>
-     </form>
+       
 
 
 
    </div>
+
+   <div class="modal-footer">
+    <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Update Business Attribute</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reset()">Cancel</button>
+
+  </div>
+  </form>
+
 
  </div>
 </div>

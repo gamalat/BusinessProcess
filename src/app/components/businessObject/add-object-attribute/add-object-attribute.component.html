@@ -13,15 +13,16 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="objectAttributeLabel">Add Object Attribute</h5>
+        <h6 class="modal-title" id="objectAttributeLabel">Add Object Attribute</h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm(addForm.value)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form  #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)">
+
       <div class="modal-body">
         <!-- {{id}} -->
         <!-- #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)"  -->
-        <form  #addForm="ngForm" (ngSubmit)="onAddAttObj(addForm)">
           <div class="form-group row" style="visibility: hidden;height: 0;">
             <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
             <div class="col-sm-10  input-group-sm">
@@ -111,11 +112,7 @@
               </small>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="submit"[disabled]="addForm.invalid" class="btn btn-success">Add  Object Attribute</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetForm(addForm.value)">Cancel</button>
-
-          </div>
+       
 <!-- <div ng-controller="MainCtrl">
           <input type="checkbox" ng-model="checked"><br/>
     
@@ -125,11 +122,18 @@
           <option value="three">Three</option>
     </select>
   </div> -->
-        </form>
 
 
 
       </div>
+
+      <div class="modal-footer">
+        <button type="submit"[disabled]="addForm.invalid" class="btn btn-success">Add  Object Attribute</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetForm(addForm.value)">Cancel</button>
+
+      </div>
+    </form>
+
 
     </div>
   </div>

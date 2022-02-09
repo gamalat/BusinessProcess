@@ -1,5 +1,5 @@
 <p-table [value]="lookups" dataKey="LOOKUP_ID" dataKey="name" id="lookupTable" responsiveLayout="scroll" [scrollable]="true" scrollHeight="500px"
-styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"  >
+styleClass="p-datatable-sm  p-datatable-striped p-datatable-customers"  >
   <ng-template pTemplate="caption" class="border">
  <!-- [scrollable]="true" scrollHeight="500px" -->
 
@@ -9,7 +9,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       </button>
       <!-- <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="btn btn-info btn-sm mb-1"  pTooltip="XLS" tooltipPosition="bottom"></button> -->
 
-      <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" style="float: right; margin-right: 5px; ">
+      <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" title="XLS" style="float: right; margin-right: 5px; ">
         <i class="fa fa-download" aria-hidden="true" ></i>
         Export 
       </button>
@@ -122,18 +122,19 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteLookupModalLabel">Delete Lookup</h5>
+            <h6 class="modal-title" id="deleteLookupModalLabel">Delete Lookup</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <p>Are you sure you want to delete {{LOOKUP_NAME}}?</p>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button (click)="onDeleteLookup(lookup.LOOKUP_ID)" class="btn btn-danger"
-                data-dismiss="modal">Yes</button>
-            </div>
+         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="onDeleteLookup(lookup.LOOKUP_ID)" class="btn btn-danger"
+              data-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>
@@ -155,13 +156,14 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLookupLabel">Add New Lookup</h5>
+        <h6 class="modal-title" id="addLookupLabel">Add New Lookup</h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm(addForm.value)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form #addForm="ngForm" >
+
       <div class="modal-body">
-        <form #addForm="ngForm" >
           <!-- "onAddLookup(addForm)" -->
           <!-- <div class="form-group row" style="visibility: hidden;height: 0;">
             <label for="LOOKUP_ID" class="col-sm-2 col-form-label">Lookup ID* </label>
@@ -238,15 +240,18 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
            
             </div>
           </div>
-          <div class="modal-footer">
-           
-            <button type="button"  class="btn btn-success"  *ngIf="LOOKUP_TYPE==='SCRIPT'" (click)="validate(addForm,LOOKUP_SCRIPT)">Validate Script</button>
-            <button type="button" [disabled]="addForm.invalid" class="btn btn-success"  (click)="onValidate(addForm)">Add Lookup</button>
-            <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
-              (click)="resetForm(addForm.value)">Cancel</button>
-          </div>
-        </form>
+     
+     
       </div>
+
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-success"  *ngIf="LOOKUP_TYPE==='SCRIPT'" (click)="validate(addForm,LOOKUP_SCRIPT)">Validate Script</button>
+        <button type="button" [disabled]="addForm.invalid" class="btn btn-success"  (click)="onValidate(addForm)">Add Lookup</button>
+        <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
+          (click)="resetForm(addForm.value)">Cancel</button>
+      </div>
+
+    </form>
 
     </div>
   </div>
@@ -259,7 +264,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
 
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateLookupLabel">Update Lookup</h5>
+        <h6 class="modal-title" id="updateLookupLabel">Update Lookup</h6>
 
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm(Form.value)">
@@ -359,7 +364,7 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
           <button type="button" class="btn btn-success btn-sm mb-1"  (click)="addObjBtn()">
             <i class="fa fa-plus"></i> Add Object
           </button>
-        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcelObj()" pTooltip="XLS" style="float: right;" >
+        <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcelObj()" title="XLS" style="float: right;" >
           <i class="fa fa-download" aria-hidden="true" ></i>
           Export 
         </button>
@@ -375,8 +380,6 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
               <p-sortIcon field="OBJECT_CODE"></p-sortIcon>
             </div>
           </th>
-
-
 
           <th pSortableColumn="DISPLAY_NAME">
             <div class="p-d-flex p-jc-between p-ai-center">
@@ -433,17 +436,18 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="deleteObjModalLabel">Delete Lookup</h5>
+                <h6 class="modal-title" id="deleteObjModalLabel">Delete Lookup</h6>
                 <button type="button" class="close" (click)="closeObjModel()" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <p>Are you sure you want to delete {{OBJECT_CODE}}?</p>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" (click)="closeObjModel()">No</button>
-                  <button class="btn btn-danger"  (click)="DeleteObj(obj.LOOKUP_OBJECT_ID)">Yes</button>
-                </div>
+              
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeObjModel()">No</button>
+                <button class="btn btn-danger"  (click)="DeleteObj(obj.LOOKUP_OBJECT_ID)">Yes</button>
               </div>
             </div>
           </div>
@@ -478,8 +482,8 @@ styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatabl
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addObjectLabel" *ngIf="!this.updateMode">Add New Lookup Object</h5>
-        <h5 class="modal-title" id="addObjectLabel" *ngIf="this.updateMode">Update Lookup Object</h5>
+        <h6 class="modal-title" id="addObjectLabel" *ngIf="!this.updateMode">Add New Lookup Object</h6>
+        <h6 class="modal-title" id="addObjectLabel" *ngIf="this.updateMode">Update Lookup Object</h6>
 
         <button type="button" class="close" (click)="objectDismiss()" aria-label="Close" (click)="resetObjForm(addObj.value)">
           <span aria-hidden="true">&times;</span>

@@ -58,7 +58,7 @@
           <i class="fa fa-refresh" aria-hidden="true"></i>
           Reset 
           </button>
-          <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS" >
+          <button  type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" title="XLS" >
             <i class="fa fa-download" aria-hidden="true" ></i>
             Export 
           </button>
@@ -126,7 +126,7 @@
   </form> -->
 
 <p-table [value]="audits"  dataKey="action_ID" id="body" responsiveLayout="scroll"  [scrollable]="true" scrollHeight="450px"
- styleClass="p-datatable-sm  p-datatable-striped p-datatable-gridlines p-datatable-customers"
+ styleClass="p-datatable-sm  p-datatable-striped p-datatable-customers"
   #dt>
   <!-- [scrollable]="true" [rows]="100" scrollHeight="900px"
   [virtualScroll]="true" [virtualRowHeight]="100"> -->

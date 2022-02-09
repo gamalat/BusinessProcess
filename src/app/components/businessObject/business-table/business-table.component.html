@@ -1,7 +1,7 @@
 <div class="row col-12" style="margin: 0 -27px; ">
-  <div class="col-12" style="padding-top:10px; ">
+  <div class="col-12">
     <app-add-business-object></app-add-business-object>
-    <button type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" pTooltip="XLS"
+    <button type="button" class="btn btn-info btn-sm mb-1" (click)="exportExcel()" title="XLS"
       style="margin-left: 10px;">
       <i class="fa fa-download" aria-hidden="true"></i>
       Export
@@ -9,9 +9,11 @@
   </div>
   <div class="col-4">
 
-    <p-table [value]="AllData" dataKey="bo_ID" responsiveLayout="scroll" [scrollable]="true" scrollHeight="520px"
+    <p-table [value]="AllData" id="bustable" dataKey="bo_ID" responsiveLayout="scroll" [scrollable]="false" scrollHeight="520px"
       id="boTable" name="boTable" selectionMode="multiple" [(selection)]="selectedProducts"
-      (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true">
+      (onFilter)="handleFilter($event,dt.totalRecords)" expandableRows="true"
+      styleClass="p-datatable-sm  p-datatable-striped "  >
+
 
       <ng-template pTemplate="header">
         <tr [pSelectableRow]="MainData">
@@ -37,7 +39,7 @@
 
       <!-- (mouseover)="highlightBo(MainData)" -->
       <ng-template pTemplate="body" let-MainData let-expanded="expanded">
-        <tr (click)="onRowBo(MainData)" style="height:40px"
+        <tr (click)="onRowBo(MainData)" style="height:40px ;  "
           [ngClass]="{'highlight' : MainData.bo_NAME == selectedName}">
           <td style="max-width: 10% ">
             <button type="button" pButton pRipple [pRowToggler]="MainData"
@@ -67,17 +69,18 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="deleteBoModalLabel">Delete Business Object</h5>
+                <h6 class="modal-title" id="deleteBoModalLabel">Delete Business Object</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <p>Are you sure you want to delete {{DboName}}?</p>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <button (click)="onDeleteBo(DboID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-                </div>
+            
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteBo(DboID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
               </div>
             </div>
           </div>
@@ -85,18 +88,20 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5"><span class="emptymessage">No Data Found</span> </td>
+          <td colspan="4"><span class="emptymessage">No Data Found</span> </td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="rowexpansion" let-MainData>
         <tr>
-          <td colspan="7">
+          <td colspan="4" style="    padding: 5px;">
             <!-- <div class="p-p-3">  -->
-            <p-table [value]="MainData.dos" dataKey="do_ID" styleClass="p-table-sm" id="doTable">
-              <ng-template pTemplate="header">
-        <tr>
-          <th style="max-width:10% "></th>
+            <p-table [value]="MainData.dos" dataKey="do_ID" 
+            styleClass="p-datatable-sm  p-datatable-striped " id="doTable" style="width: 88%;">
+
+              <ng-template pTemplate="header" >
+        <tr >
+          <!-- <th style="max-width:10% "></th> -->
           <!-- <th pSortableColumn="do_ID">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             Do ID
@@ -112,22 +117,22 @@
               <p-sortIcon field="name"></p-sortIcon>
               <p-columnFilter type="text" field="do_ID" display="menu"></p-columnFilter>
               
-                       <i class="fa fa-download" (click)="exportExcelDo()" style="font-size:16px;" pTooltip="XLS"></i>
+                       <i class="fa fa-download" (click)="exportExcelDo()" style="font-size:16px;" title="XLS"></i>
                              
                             
             </div>
           </th>
-          <th style="max-width:10% ">
+          <th >
           
           </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-DetailsData>
         <tr (click)="onRowDo(DetailsData)" [ngClass]="{'highlight' : DetailsData.do_NAME == DselectedName}">
-          <td style="max-width:10% "></td>
+          <!-- <td style="max-width:10% "></td> -->
           <!-- <td >{{DetailsData.do_ID}}</td> -->
           <td style="max-width:60% ">{{DetailsData.do_NAME}}</td>
-          <td style="max-width:10% ">
+          <td >
             <!-- <i class="fa fa-trash-o" style="font-size:24px;color:red"
                             (click)="onDeleteDo(DetailsData.do_ID)"></i></td> -->
             <i class="fa fa-trash-o" popover-class="popover" style="font-size:16px;color:red"
@@ -140,17 +145,19 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="deletedoModalLabel">Delete Data Object</h5>
+                <h6 class="modal-title" id="deletedoModalLabel">Delete Data Object</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <p>Are you sure you want to delete {{DdoName}}?</p>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  <button (click)="onDeleteDo(DdoID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-                </div>
+             
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteDo(DdoID)" class="btn btn-danger" data-dismiss="modal">Yes</button>
               </div>
             </div>
           </div>
@@ -158,7 +165,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="6"><span class="emptymessage">No Data Found</span> </td>
+          <td colspan="4"><span class="emptymessage">No Data Found</span> </td>
         </tr>
       </ng-template>
     </p-table>
@@ -179,13 +186,14 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="dataObjectLabel">Add Data Object</h5>
+        <h6 class="modal-title" id="dataObjectLabel">Add Data Object</h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reset(addForm.value)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form #addForm="ngForm" (ngSubmit)="onAddDatasObj(this.DboID,addForm)">
+
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onAddDatasObj(this.DboID,addForm)">
           <div class="form-group row" style="visibility: hidden;height: 0;">
             <label for="bo_ID" class="col-sm-2 col-form-label">BO ID</label>
             <div class="col-sm-10  input-group-sm">
@@ -243,24 +251,27 @@
               </small>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Data Object</button>
-            <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
-              (click)="reset(addForm.value)">Cancel</button>
-
-          </div>
-        </form>
+       
 
 
 
       </div>
+
+      <div class="modal-footer">
+        <button type="submit" [disabled]="addForm.invalid" class="btn btn-success">Add Data Object</button>
+        <button type="button" class="btn btn-danger" id="add-obj-form" data-dismiss="modal"
+          (click)="reset(addForm.value)">Cancel</button>
+
+      </div>
+    </form>
+
 
     </div>
   </div>
 </div>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+    <h6 class="modal-title" id="modal-basic-title">Confirmation</h6>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">×</span>
     </button>
